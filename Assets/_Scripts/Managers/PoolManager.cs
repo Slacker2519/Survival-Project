@@ -1,8 +1,6 @@
 using Elite.GangGang.Utils;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -22,13 +20,15 @@ public class ObjectPool
 
 public class PoolManager : MonoBehaviour
 {
+    // List containts object after spawned
     private List<ObjectPool> _pools = new List<ObjectPool>();
 
     private void Awake()
     {
         LoadDataAssets();
     }
-
+    
+    //Loop through assets data and get all prefabs to pooled it
     public void LoadDataAssets()
     {
         DataAssets asset = ConfigDataManager.Instance.DataAssets;
@@ -91,6 +91,7 @@ public class PoolManager : MonoBehaviour
         return obj;
     }
 
+    // Return object to pool after not use it
     public void ReturnObject(GameObject obj, string poolName = "")
     {
         if (string.IsNullOrEmpty(poolName))
@@ -105,6 +106,7 @@ public class PoolManager : MonoBehaviour
         }
     }
 
+    //Return all objects have spawned to pool
     public void ReturnAllObjects()
     {
         foreach (var pool in _pools)
