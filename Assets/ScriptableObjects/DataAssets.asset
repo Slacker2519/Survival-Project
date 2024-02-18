@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: DataAssets
   m_EditorClassIdentifier: 
   _configCharactersStatList:
-  - CharacterName: 0
-    Health: 0
-    Defense: 0
-    Damage: 0
-    Speed: 0
+  - Name: 0
+    Health: 100
+    Defense: 50
+    Damage: 70
+    Speed: 45
+    Prefab: {fileID: 4013222765616695671, guid: a07bcfa4b97e3a64984c5628d76c2bbf, type: 3}
   _configEnemiesStatList:
-  - EnemyName: 0
+  - Name: 0
     Health: 0
     Defense: 0
     Damage: 0
     Speed: 0
+    prefab: {fileID: 0}
