@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour
 {
+    public CharacterStats CharStats => Stats;
     protected CharacterStats Stats;
+
     [SerializeField] protected Rigidbody2D _rigidbody2d;
     [SerializeField] protected float RotateSpeed;
 
@@ -12,9 +14,9 @@ public class BaseCharacter : MonoBehaviour
     private bool _isWalking;
 
     // Initiate character stats when spawn character from poolmanager or gamecontroller
-    public void InitCharacterStats(long health, long defense, long damage, long speed)
+    public void InitCharacterStats(CharacterEnum name, long health, long defense, long damage, long speed)
     {
-        Stats = new CharacterStats(health, defense, damage, speed);
+        Stats = new CharacterStats(name, health, defense, damage, speed);
     }
 
     protected void MoveCharacter()

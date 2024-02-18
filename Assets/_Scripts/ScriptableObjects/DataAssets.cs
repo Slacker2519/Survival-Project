@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class CharacterConfigData
 {
-    public CharacterEnum CharacterName;
+    public CharacterEnum Name;
     public long Health;
     public long Defense;
     public long Damage;
@@ -17,7 +17,7 @@ public class CharacterConfigData
 [Serializable]
 public class EnemyConfigData
 {
-    public EnemyEnum EnemyName;
+    public EnemyEnum Name;
     public long Health;
     public long Defense;
     public long Damage;
@@ -42,11 +42,11 @@ public class DataAssets : ScriptableObject
 
     public CharacterConfigData GetCharacterConfig(CharacterEnum characterName)
     {
-        return _configCharactersStatList.Find(x => x.CharacterName == characterName);
+        return _configCharactersStatList.Find(x => x.Name == characterName);
     }
 
     public EnemyConfigData GetEnemyConfig(EnemyEnum enemyName)
     {
-        return _configEnemiesStatList.Find(x => x.EnemyName == enemyName);
+        return _configEnemiesStatList.Find(x => x.Name == enemyName);
     }
 }

@@ -18,7 +18,7 @@ public class ObjectPool
     }
 }
 
-public class PoolManager : MonoBehaviour
+public class PoolManager : SingletonMono<PoolManager>
 {
     // List containts object after spawned
     private List<ObjectPool> _pools = new List<ObjectPool>();
@@ -35,14 +35,14 @@ public class PoolManager : MonoBehaviour
 
         foreach(var item in asset.ConfigCharactersStatList)
         {
-            var pool = new ObjectPool(item.CharacterName.ToString(), item.Prefab);
+            var pool = new ObjectPool(item.Name.ToString(), item.Prefab);
             _pools.Add(pool);
             new GameObject(pool.PoolName).transform.SetParent(transform);
         }
 
         foreach (var item in asset.ConfigEnemiesStatList) 
         {
-            var pool = new ObjectPool(item.EnemyName.ToString(), item.prefab); 
+            var pool = new ObjectPool(item.Name.ToString(), item.prefab); 
             _pools.Add(pool);
             new GameObject(pool.PoolName).transform.SetParent(transform);
         }
