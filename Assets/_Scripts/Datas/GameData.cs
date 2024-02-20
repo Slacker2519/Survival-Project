@@ -1,8 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterStats : MonoBehaviour
+[Serializable]
+public class GameData
+{
+    // Data need to save
+}
+
+[Serializable]
+public class CharacterStats
 {
     public CharacterEnum Name;
     public long Health;
