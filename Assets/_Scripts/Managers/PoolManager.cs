@@ -21,6 +21,7 @@ public class ObjectPool
 public class PoolManager : SingletonMono<PoolManager>
 {
     // List containts object after spawned
+    [SerializeField]
     private List<ObjectPool> _pools = new List<ObjectPool>();
 
     private void Awake()

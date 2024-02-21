@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : SingletonMono<GameController>
+public class GameController : MonoBehaviour
 {
     // New input system ref
     public GameInput Input => _gameInput;
