@@ -3,10 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
 public class GameData
 {
     // Data need to save
+    public CharacterStats CharacterPicked;
+
+    public GameData()
+    {
+        var stat = ConfigDataManager.Instance.DataAssets.GetCharacterConfig(CharacterEnum.Character1);
+        CharacterPicked = new CharacterStats(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed);
+    }
 }
 
 [Serializable]
