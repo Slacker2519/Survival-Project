@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseCharacter : MonoBehaviour
+public abstract class BaseCharacter : MonoBehaviour
 {
     public CharacterStats CharStats => Stats;
     protected CharacterStats Stats;
@@ -32,5 +32,13 @@ public class BaseCharacter : MonoBehaviour
 
         float angle = Mathf.Atan2(mouseWordPos.y, mouseWordPos.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+
+    //Modify by Tuan Anh 23/02/2024.
+    public virtual void TakeDamage(long dame)
+    {
+        long trueDame = dame - Stats.Defense;
+        trueDame = trueDame > 0 ? trueDame : 0;
+        Stats.Health -= trueDame;
     }
 }

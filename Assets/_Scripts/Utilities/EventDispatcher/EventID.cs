@@ -1,6 +1,7 @@
 public enum EventID
 {
-    None = 0,
+    None,
     OnPlayerTakeDamage,
     OnEnemyTakeDamage,
+    //Add more event if you want.
 }
