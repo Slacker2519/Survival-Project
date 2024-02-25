@@ -6,9 +6,13 @@ using UnityEngine;
 public class Character1 : BaseCharacter
 {
 
+
+
+    public List<IBuff> Buffs;
+
     private void Start()
     {
-        this.RegisterEvent(EventID.OnPlayerTakeDamage,WhenPlayerTakeDame);
+        Buffs[0].Shoot();
         TakeDamage(70);
     }
     private void Update()
@@ -22,12 +26,47 @@ public class Character1 : BaseCharacter
         this.PostEvent(EventID.OnPlayerTakeDamage);
     }
 
-    /// <summary>
-    /// Example event excute when player take damage.
-    /// </summary>
-    public void WhenPlayerTakeDame(object a)
+
+
+    public class UImanager : MonoBehaviour
     {
 
+        private void Start()
+        {
+            this.RegisterEvent(EventID.OnPlayerTakeDamage, WhenPlayerTakeDameUPdateUI);
+        }
+        /// <summary>
+        /// Example event excute when player take damage.
+        /// </summary>
+        public void WhenPlayerTakeDameUPdateUI(object a)
+        {
+
+        }
     }
 
+
+}
+
+public interface IBuff
+{
+    void Shoot();
+}
+
+public class ShotGun : MonoBehaviour,IBuff
+{
+    public GameObject bullet;
+    public void Shoot()
+    {
+
+        Debug.Log("ban tum lum");
+    }
+}
+
+public class MachineGun : IBuff
+{
+
+    public void Shoot()
+    {
+        Debug.Log("ban lien thanh");
+    }
 }
