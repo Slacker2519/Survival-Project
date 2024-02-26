@@ -17,7 +17,7 @@ MonoBehaviour:
     Health: 100
     Defense: 50
     Damage: 70
-    Speed: 45
+    Speed: 10
     Prefab: {fileID: 4013222765616695671, guid: a07bcfa4b97e3a64984c5628d76c2bbf, type: 3}
   _configEnemiesStatList:
   - Name: 0
