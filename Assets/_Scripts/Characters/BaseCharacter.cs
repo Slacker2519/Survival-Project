@@ -41,4 +41,9 @@ public abstract class BaseCharacter : MonoBehaviour
         trueDame = trueDame > 0 ? trueDame : 0;
         Stats.Health -= trueDame;
     }
+
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
 }

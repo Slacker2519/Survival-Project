@@ -72,7 +72,7 @@ public class EventDispatcher : MonoBehaviour
     }
 
 
-    public void PostEvent(EventID eventID, Action<object> param = null)
+    public void PostEvent(EventID eventID, object param = null)
     {
         if (!_allEvent.ContainsKey(eventID))
         {
@@ -132,7 +132,7 @@ public static class EventDispatcherExtenstion
     /// <param name="listener"></param>
     /// <param name="eventID"></param>
     /// <param name="param"></param>
-    public static void PostEvent(this MonoBehaviour listener, EventID eventID, Action<object> param)
+    public static void PostEvent(this MonoBehaviour listener, EventID eventID, object param)
     {
         EventDispatcher.Instance.PostEvent(eventID,param);
     }
