@@ -28,10 +28,10 @@ public abstract class BaseCharacter : MonoBehaviour
         _rigidbody2d.MovePosition(_rigidbody2d.position + (moveDir.normalized * Stats.Speed * Time.fixedDeltaTime));
         _isWalking = moveDir != Vector2.zero;
 
-        Vector2 mouseWordPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Vector2 mouseWordPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        float angle = Mathf.Atan2(mouseWordPos.y, mouseWordPos.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        //float angle = Mathf.Atan2(mouseWordPos.y, mouseWordPos.x) * Mathf.Rad2Deg;
+        //transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     //Modify by Tuan Anh 23/02/2024.

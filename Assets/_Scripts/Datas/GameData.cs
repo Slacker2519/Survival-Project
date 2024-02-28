@@ -19,6 +19,7 @@ public class GameData
 public class CharacterStats
 {
     public CharacterEnum Name;
+    public EnemyEnum EnemyName;
     public long Health;
     public long Defense;
     public long Damage;
@@ -27,6 +28,15 @@ public class CharacterStats
     public CharacterStats(CharacterEnum name, long health, long defense, long damage, long speed)
     {
         Name = name;
+        Health = health;
+        Defense = defense;
+        Damage = damage;
+        Speed = speed;
+    }
+
+    public CharacterStats(EnemyEnum name, long health, long defense, long damage, long speed)
+    {
+        EnemyName = name;
         Health = health;
         Defense = defense;
         Damage = damage;
