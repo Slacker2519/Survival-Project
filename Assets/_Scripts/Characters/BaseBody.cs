@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseCharacter : MonoBehaviour
+public abstract class BaseBody : MonoBehaviour
 {
     public CharacterStats CharStats => Stats;
     protected CharacterStats Stats;
@@ -19,7 +19,7 @@ public abstract class BaseCharacter : MonoBehaviour
         Stats = new CharacterStats(name, health, defense, damage, speed);
     }
 
-    protected void MoveCharacter()
+    protected virtual void Move()
     {
         GameController gameController = GameManager.Instance.Controller;
         Vector2 inputVector = gameController.Input.GetMovementVectorNormalized();
