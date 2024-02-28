@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character1 : BaseCharacter
+public class Character1 : BaseBody
 {
     private void Start()
     {
     }
     private void Update()
     {
-        MoveCharacter();
+        base.Move();
 
 
     }
