@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class CharacterConfigData
 {
+    public int Level;
     public CharacterEnum Name;
     public long Health;
     public long Defense;
@@ -22,7 +23,14 @@ public class EnemyConfigData
     public long Defense;
     public long Damage;
     public long Speed;
-    public GameObject prefab;
+    public GameObject Prefab;
+}
+
+[Serializable]
+public class SkillConfigData
+{
+    public SkillEnum Name;
+    public GameObject Prefab;
 }
 
 [CreateAssetMenu(fileName = "DataAssets", menuName = "ScripableObjects/DataAssets", order = 0)]
@@ -40,6 +48,12 @@ public class DataAssets : ScriptableObject
     private List<EnemyConfigData> _configEnemiesStatList;
     public List<EnemyConfigData> ConfigEnemiesStatList => _configEnemiesStatList;
 
+    [Space(30)]
+
+    [SerializeField]
+    private List<SkillConfigData> _configSkillsStatList;
+    public List <SkillConfigData> ConfigSkillsStatList => _configSkillsStatList;
+
     public CharacterConfigData GetCharacterConfig(CharacterEnum characterName)
     {
         return _configCharactersStatList.Find(x => x.Name == characterName);
@@ -48,5 +62,10 @@ public class DataAssets : ScriptableObject
     public EnemyConfigData GetEnemyConfig(EnemyEnum enemyName)
     {
         return _configEnemiesStatList.Find(x => x.Name == enemyName);
+    }
+
+    public SkillConfigData GetSkillConfig(SkillEnum skillName)
+    {
+        return _configSkillsStatList.Find(x => x.Name == skillName);
     }
 }

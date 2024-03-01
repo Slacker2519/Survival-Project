@@ -11,3 +11,10 @@ public enum EnemyEnum
     Enemy2,
     Enemy3,
 }
+
+public enum SkillEnum
+{
+    Skill1,
+    Skill2, 
+    Skill3,
+}

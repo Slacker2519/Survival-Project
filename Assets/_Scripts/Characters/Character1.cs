@@ -5,17 +5,14 @@ using UnityEngine;
 
 public class Character1 : BaseBody
 {
-    private void Start()
+    private void Awake()
     {
+        _Rigidbody2d = GetComponent<Rigidbody2D>();
     }
-    private void Update()
-    {
-        base.Move();
 
-
-    }
     private void FixedUpdate()
     {
+        base.Move();
         this.PostEvent(EventID.OnPlayerMove, this.transform);
     }
 

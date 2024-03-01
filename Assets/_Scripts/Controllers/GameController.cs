@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
     private BaseBody _player;
 
     public List<BaseEnemy> EnemiesList => _enemiesList;
-    private List<BaseEnemy> _enemiesList;
+    [SerializeField] private List<BaseEnemy> _enemiesList;
 
     private void Start()
     {
@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour
             _player = player;
             var configManager = ConfigDataManager.Instance;
             CharacterConfigData stat = configManager.DataAssets.GetCharacterConfig(characterPicked);
-            _player.InitCharacterStats(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed);
+            _player.InitCharacterStats(stat.Level, stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed);
             //GameManager.Instance.SaveGameData();
         }
     }
@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour
         {
             _enemiesList.Add(enemy);
             EnemyConfigData stat = firstEnemy;
-            enemy.InitCharacterStats(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed);
+            enemy.InitEnemyStat(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed);
             //GameManager.Instance.SaveGameData();
         }
     }

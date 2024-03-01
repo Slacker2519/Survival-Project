@@ -43,7 +43,14 @@ public class PoolManager : SingletonMono<PoolManager>
 
         foreach (var item in asset.ConfigEnemiesStatList) 
         {
-            var pool = new ObjectPool(item.Name.ToString(), item.prefab); 
+            var pool = new ObjectPool(item.Name.ToString(), item.Prefab); 
+            _pools.Add(pool);
+            new GameObject(pool.PoolName).transform.SetParent(transform);
+        }
+
+        foreach (var item in asset.ConfigSkillsStatList)
+        {
+            var pool = new ObjectPool(item.Name.ToString(), item.Prefab);
             _pools.Add(pool);
             new GameObject(pool.PoolName).transform.SetParent(transform);
         }
@@ -62,6 +69,11 @@ public class PoolManager : SingletonMono<PoolManager>
     public GameObject SpawnEnemy(EnemyEnum enemyName, Transform parent = null)
     {
         return GetObjectFromPool(enemyName.ToString(), parent);
+    }
+
+    public GameObject SpawnSkill(SkillEnum skillName, Transform parent = null)
+    {
+        return GetObjectFromPool(skillName.ToString(), parent);
     }
 
     private GameObject GetObjectFromPool(string poolName, Transform parent = null)

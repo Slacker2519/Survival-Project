@@ -126,8 +126,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2002208f8c4667498456a6de9a1313c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody2d: {fileID: 1335428768595313099}
-  RotateSpeed: 30
+  _CharacterStat:
+    Level: 0
+    Name: 0
+    Health: 0
+    Defense: 0
+    Damage: 0
+    Speed: 0
+  _Rigidbody2d: {fileID: 1335428768595313099}
+  _RotateSpeed: 0
 --- !u!1 &4497771451236534006
 GameObject:
   m_ObjectHideFlags: 0

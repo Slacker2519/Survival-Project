@@ -3,40 +3,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class GameData
 {
     // Data need to save
     public CharacterStats CharacterPicked;
 
-    public GameData()
+    public GameData(DataAssets dataAssets)
     {
-        var stat = ConfigDataManager.Instance.DataAssets.GetCharacterConfig(CharacterEnum.Character1);
-        CharacterPicked = new CharacterStats(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed);
+        var stat = dataAssets.GetCharacterConfig(CharacterEnum.Character1);
+        CharacterPicked = new CharacterStats(stat.Level, stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed);
     }
 }
 
 [Serializable]
 public class CharacterStats
 {
+    public int Level;
     public CharacterEnum Name;
-    public EnemyEnum EnemyName;
     public long Health;
     public long Defense;
     public long Damage;
     public long Speed;
 
-    public CharacterStats(CharacterEnum name, long health, long defense, long damage, long speed)
+    public CharacterStats(int level, CharacterEnum name, long health, long defense, long damage, long speed)
     {
+        Level = level;
         Name = name;
         Health = health;
         Defense = defense;
         Damage = damage;
         Speed = speed;
     }
+}
 
-    public CharacterStats(EnemyEnum name, long health, long defense, long damage, long speed)
+[Serializable]
+public class EnemyStats
+{
+    public EnemyEnum Name;
+    public long Health;
+    public long Defense;
+    public long Damage;
+    public long Speed;
+
+    public EnemyStats(EnemyEnum name, long health, long defense, long damage, long speed)
     {
-        EnemyName = name;
+        Name = name;
         Health = health;
         Defense = defense;
         Damage = damage;

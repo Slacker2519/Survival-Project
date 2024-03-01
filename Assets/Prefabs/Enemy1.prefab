@@ -171,5 +171,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deab995183f656b4ba6bc76a001b1710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody2d: {fileID: 6329309840208673162}
-  _minDistanceFollow: 1.5
+  _CharacterStat:
+    Level: 0
+    Name: 0
+    Health: 0
+    Defense: 0
+    Damage: 0
+    Speed: 0
+  _Rigidbody2d: {fileID: 6329309840208673162}
+  _RotateSpeed: 0
+  _EnemyStat:
+    Name: 0
+    Health: 0
+    Defense: 0
+    Damage: 0
+    Speed: 0
+  _MinDistanceFollow: 1.5

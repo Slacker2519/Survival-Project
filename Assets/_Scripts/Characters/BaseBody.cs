@@ -4,19 +4,21 @@ using UnityEngine;
 
 public abstract class BaseBody : MonoBehaviour
 {
-    public CharacterStats CharStats => Stats;
-    protected CharacterStats Stats;
+    public CharacterStats CharStats => _CharacterStat;
+    [SerializeField] protected CharacterStats _CharacterStat;
 
-    [SerializeField] protected Rigidbody2D _rigidbody2d;
-    [SerializeField] protected float RotateSpeed;
+    [Space (10)]
+
+    [SerializeField] protected Rigidbody2D _Rigidbody2d;
+    [SerializeField] protected float _RotateSpeed;
 
     public bool IsWalking => _isWalking;
     private bool _isWalking;
 
     // Initiate character stats when spawn character from poolmanager or gamecontroller
-    public void InitCharacterStats(CharacterEnum name, long health, long defense, long damage, long speed)
+    public void InitCharacterStats(int level, CharacterEnum name, long health, long defense, long damage, long speed)
     {
-        Stats = new CharacterStats(name, health, defense, damage, speed);
+        _CharacterStat = new CharacterStats(level, name, health, defense, damage, speed);
     }
 
     protected virtual void Move()
@@ -25,7 +27,7 @@ public abstract class BaseBody : MonoBehaviour
         Vector2 inputVector = gameController.Input.GetMovementVectorNormalized();
         Vector2 moveDir = new Vector2(inputVector.x, inputVector.y);
 
-        _rigidbody2d.MovePosition(_rigidbody2d.position + (moveDir.normalized * Stats.Speed * Time.fixedDeltaTime));
+        _Rigidbody2d.MovePosition(_Rigidbody2d.position + (moveDir.normalized * _CharacterStat.Speed * Time.fixedDeltaTime));
         _isWalking = moveDir != Vector2.zero;
 
         //Vector2 mouseWordPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -37,9 +39,9 @@ public abstract class BaseBody : MonoBehaviour
     //Modify by Tuan Anh 23/02/2024.
     public virtual void TakeDamage(long dame)
     {
-        long trueDame = dame - Stats.Defense;
+        long trueDame = dame - _CharacterStat.Defense;
         trueDame = trueDame > 0 ? trueDame : 0;
-        Stats.Health -= trueDame;
+        _CharacterStat.Health -= trueDame;
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
