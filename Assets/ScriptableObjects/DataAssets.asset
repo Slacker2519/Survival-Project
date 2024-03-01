@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DataAssets
   m_EditorClassIdentifier: 
   _configCharactersStatList:
-  - Name: 0
+  - Level: 1
+    Name: 0
     Health: 100
     Defense: 50
     Damage: 70
@@ -26,3 +27,6 @@ MonoBehaviour:
     Damage: 10
     Speed: 7
     prefab: {fileID: 8005877050035949135, guid: 18fbd35cd6a08c84db75f293b93b4668, type: 3}
+  _configSkillsStatList:
+  - Name: 0
+    Prefab: {fileID: 0}

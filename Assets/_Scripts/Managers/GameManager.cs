@@ -33,7 +33,7 @@ public class GameManager : SingletonMono<GameManager>
         string filePath = Path.Combine(Application.persistentDataPath, "data.json");
         if (!File.Exists(filePath))
         {
-            _data = new GameData();
+            _data = new GameData(ConfigDataManager.Instance.DataAssets);
         }
         else
         {
