@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseEnemy : BaseBody
+public abstract class BaseEnemy : MonoBehaviour
 {
+    protected Rigidbody2D _Rigidbody2d;
     public EnemyStats EnemyStat => _EnemyStat;
     [SerializeField] protected EnemyStats _EnemyStat;
 
@@ -11,10 +12,7 @@ public abstract class BaseEnemy : BaseBody
 
     [SerializeField] protected float _MinDistanceFollow = 1.5f;
 
-    public void InitEnemyStat(EnemyEnum name, long health, long defense, long damage, long speed)
-    {
-        _EnemyStat = new EnemyStats(name, health, defense, damage, speed);
-    }
+    public abstract void InitEnemyStat(EnemyEnum name, long health, long defense, long damage, long speed);
 
     protected virtual void ChasePlayer()
     {
