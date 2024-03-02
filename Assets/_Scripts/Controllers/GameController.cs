@@ -7,8 +7,8 @@ public class GameController : MonoBehaviour
     public GameInput Input => _gameInput;
     [SerializeField] private GameInput _gameInput;
 
-    public BaseBody Player => _player;
-    private BaseBody _player;
+    public BaseCharacter Player => _player;
+    private BaseCharacter _player;
 
     public List<BaseEnemy> EnemiesList => _enemiesList;
     [SerializeField] private List<BaseEnemy> _enemiesList;
@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
     {
         var characterPicked = GameManager.Instance.Data.CharacterPicked.Name;
         var character = PoolManager.Instance.SpawnCharacter(characterPicked);
-        if (character.TryGetComponent<BaseBody>(out BaseBody player))
+        if (character.TryGetComponent<BaseCharacter>(out BaseCharacter player))
         {
             _player = player;
             var configManager = ConfigDataManager.Instance;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class Enemy1 : BaseEnemy
@@ -8,16 +9,12 @@ public class Enemy1 : BaseEnemy
     {
         ChasePlayer();
     }
-
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    public override void InitEnemyStat(EnemyEnum name, long health, long defense, long damage, long speed)
     {
-        base.OnCollisionEnter2D(collision);
-        BaseBody body = collision.gameObject.GetComponent<BaseBody>();
-        if (body == null) return;
-        if (body.CharStats.Name.ToString().Contains("Character"))
-        {
-            body.TakeDamage(this.CharStats.Damage);
-        }
+        EnemyStat.Name = name;
+        EnemyStat.Health = health;
+        EnemyStat.Defense = defense;
+        EnemyStat.Damage = damage;
+        EnemyStat.Speed = speed;
     }
-
 }
