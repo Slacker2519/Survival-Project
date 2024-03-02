@@ -23,12 +23,12 @@ public class GameController : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        var characterPicked = GameManager.Instance.Data.CharacterPicked.Name;
+        var characterPicked = DataManager.Instance.Data.CharacterPicked.Name;
         var character = PoolManager.Instance.SpawnCharacter(characterPicked);
         if (character.TryGetComponent<BaseCharacter>(out BaseCharacter player))
         {
             _player = player;
-            var configManager = ConfigDataManager.Instance;
+            var configManager = DataManager.Instance;
             CharacterConfigData stat = configManager.DataAssets.GetCharacterConfig(characterPicked);
             _player.InitCharacterStats(stat.Level, stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed);
             //GameManager.Instance.SaveGameData();
@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        EnemyConfigData firstEnemy = ConfigDataManager.Instance.DataAssets.GetEnemyConfig(EnemyEnum.Enemy1);
+        EnemyConfigData firstEnemy = DataManager.Instance.DataAssets.GetEnemyConfig(EnemyEnum.Enemy1);
         GameObject enemyObj = PoolManager.Instance.SpawnEnemy(firstEnemy.Name);
         enemyObj.transform.position = GetEnemySpawnedPos();
         if (enemyObj.TryGetComponent<BaseEnemy>(out BaseEnemy enemy))

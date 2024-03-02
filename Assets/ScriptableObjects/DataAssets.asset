@@ -26,7 +26,5 @@ MonoBehaviour:
     Defense: 10
     Damage: 10
     Speed: 7
-    prefab: {fileID: 8005877050035949135, guid: 18fbd35cd6a08c84db75f293b93b4668, type: 3}
-  _configSkillsStatList:
-  - Name: 0
-    Prefab: {fileID: 0}
+    Prefab: {fileID: 8005877050035949135, guid: 18fbd35cd6a08c84db75f293b93b4668, type: 3}
+  _configSkillsStatList: []
