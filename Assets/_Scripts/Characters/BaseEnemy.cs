@@ -5,8 +5,8 @@ using UnityEngine;
 public abstract class BaseEnemy : MonoBehaviour
 {
     protected Rigidbody2D _Rigidbody2d;
-    public EnemyStats EnemyStat => _EnemyStat;
-    [SerializeField] protected EnemyStats _EnemyStat;
+    public EnemyData EnemyStat => _EnemyStat;
+    [SerializeField] protected EnemyData _EnemyStat;
 
     [Space(10)]
 

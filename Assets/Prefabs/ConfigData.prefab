@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5565407009533748883}
-  - component: {fileID: 6993628468357753786}
+  - component: {fileID: 7388325448150394388}
   m_Layer: 0
   m_Name: ConfigData
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6993628468357753786
+--- !u!114 &7388325448150394388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5036064507688747664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c06c87cea682204cb378380cc244da2, type: 3}
+  m_Script: {fileID: 11500000, guid: f47e99f8e1f88684bbe27cd156cd37eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _dataAssets: {fileID: 11400000, guid: b8da820a3cd27f84aa08c9a0c0074839, type: 2}
+  _data:
+    CharacterPicked:
+      Level: 0
+      Name: 0
+      Health: 0
+      Defense: 0
+      Damage: 0
+      Speed: 0

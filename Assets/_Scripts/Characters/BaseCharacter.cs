@@ -5,7 +5,22 @@ using UnityEngine;
 public abstract class BaseCharacter : MonoBehaviour
 {
     protected Rigidbody2D _Rigidbody2d;
-    public CharacterStats CharStats => _CharacterStat;
-    [SerializeField] protected CharacterStats _CharacterStat;
+
+    public CharacterData CharStats => _CharacterStat;
+    [SerializeField] protected CharacterData _CharacterStat;
+
+    public bool IsWalking => _isWalking;
+    private bool _isWalking;
+
     public abstract void InitCharacterStats(int level, CharacterEnum name, long health, long defense, long damage, long speed);
+
+    protected void Move()
+    {
+        GameController gameController = GameManager.Instance.Controller;
+        Vector2 inputVector = gameController.Input.GetMovementVectorNormalized();
+        Vector2 moveDir = new Vector2(inputVector.x, inputVector.y);
+
+        _Rigidbody2d.MovePosition(_Rigidbody2d.position + (moveDir.normalized * _CharacterStat.Speed * Time.fixedDeltaTime));
+        _isWalking = moveDir != Vector2.zero;
+    }
 }

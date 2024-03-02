@@ -32,7 +32,7 @@ public class PoolManager : SingletonMono<PoolManager>
     //Loop through assets data and get all prefabs to pooled it
     public void LoadDataAssets()
     {
-        DataAssets asset = ConfigDataManager.Instance.DataAssets;
+        DataAssets asset = DataManager.Instance.DataAssets;
 
         foreach(var item in asset.ConfigCharactersStatList)
         {
