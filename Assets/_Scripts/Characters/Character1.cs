@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Character1 : BaseCharacter
@@ -11,6 +12,7 @@ public class Character1 : BaseCharacter
     {
         Move();
         this.PostEvent(EventID.OnPlayerMove, this.transform);
+        
     }
 
     public override void InitCharacterStats(CharacterEnum name, long health, long defense, long damage, long speed,
@@ -29,4 +31,6 @@ public class Character1 : BaseCharacter
         CharStats.PickupRange = pickupRange;
     }
 }
+
+
 
