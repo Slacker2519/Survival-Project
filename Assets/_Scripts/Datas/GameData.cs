@@ -12,6 +12,7 @@ public class GameData
     public GameData(DataAssets dataAssets)
     {
         var stat = dataAssets.GetCharacterConfig(CharacterEnum.Character1);
-        CharacterPicked = new CharacterData(stat.Level, stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed);
+        CharacterPicked = new CharacterData(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed, 
+            stat.CritRate, stat.CritDamage, stat.AttackSpeed, stat.LevelExpCap, stat.PickupRange);
     }
 }

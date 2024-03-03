@@ -30,7 +30,8 @@ public class GameController : MonoBehaviour
             _player = player;
             var configManager = DataManager.Instance;
             CharacterConfigData stat = configManager.DataAssets.GetCharacterConfig(characterPicked);
-            _player.InitCharacterStats(stat.Level, stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed);
+            _player.InitCharacterStats(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed, 
+                stat.CritRate, stat.CritDamage, stat.AttackSpeed, stat.LevelExpCap, stat.PickupRange);
             //GameManager.Instance.SaveGameData();
         }
     }
