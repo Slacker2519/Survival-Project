@@ -6,12 +6,16 @@ using UnityEngine;
 [Serializable]
 public class CharacterConfigData
 {
-    public int Level;
     public CharacterEnum Name;
     public long Health;
     public long Defense;
     public long Damage;
     public long Speed;
+    public int CritRate;
+    public long CritDamage;
+    public long AttackSpeed;
+    public long LevelExpCap;
+    public float PickupRange;
     public GameObject Prefab;
 }
 
