@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class BaseCharacter : MonoBehaviour
 {
+    public Dictionary<BuffEnum, Ability> Buffs = new Dictionary<BuffEnum, Ability>();
     protected Rigidbody2D _Rigidbody2d;
 
     public CharacterData CharStats => _CharacterStat;

@@ -16,4 +16,6 @@ public interface Ability
     /// </summary>
     /// <returns></returns>
     public GameObject ReturnGameObject();
+
+    void Upgrade();
 }

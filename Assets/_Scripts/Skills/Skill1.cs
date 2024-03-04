@@ -13,4 +13,9 @@ public class Skill1 : SkillBase
     {
         return this.gameObject;
     }
+
+    public override void Upgrade()
+    {
+        Level += 1;
+    }
 }
