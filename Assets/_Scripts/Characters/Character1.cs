@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Character1 : BaseCharacter
 {
+
     private void Awake()
     {
         _Rigidbody2d = GetComponent<Rigidbody2D>();
@@ -11,6 +13,8 @@ public class Character1 : BaseCharacter
     {
         Move();
         this.PostEvent(EventID.OnPlayerMove, this.transform);
+        Debug.Log(Buffs.Count);
+        
     }
 
     public override void InitCharacterStats(CharacterEnum name, long health, long defense, long damage, long speed,
@@ -29,4 +33,6 @@ public class Character1 : BaseCharacter
         CharStats.PickupRange = pickupRange;
     }
 }
+
+
 
