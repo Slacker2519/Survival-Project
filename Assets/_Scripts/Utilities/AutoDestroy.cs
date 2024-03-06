@@ -11,12 +11,7 @@ public class AutoDestroy : MonoBehaviour
             Camera.main.WorldToViewportPoint(transform.position).y > 1 ||
             Camera.main.WorldToViewportPoint(transform.position).y < 0)
         {
-            ReturnObject();
+            gameObject.SetActive(false);
         }
-    }
-
-    private void ReturnObject()
-    {
-        gameObject.SetActive(false);
     }
 }
