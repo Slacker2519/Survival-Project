@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class AutoDestroy : MonoBehaviour
 {
     void Update()
@@ -10,7 +11,12 @@ public class AutoDestroy : MonoBehaviour
             Camera.main.WorldToViewportPoint(transform.position).y > 1 ||
             Camera.main.WorldToViewportPoint(transform.position).y < 0)
         {
-            Destroy(gameObject);
+            ReturnObject();
         }
+    }
+
+    private void ReturnObject()
+    {
+        gameObject.SetActive(false);
     }
 }

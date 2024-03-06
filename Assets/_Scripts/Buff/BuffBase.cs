@@ -11,6 +11,7 @@ public abstract class BuffBase : MonoBehaviour, Ability
     [SerializeField] private BuffEnum _name;
 
     [SerializeField] private int _level;
+
     public abstract void Execute();
 
     public abstract GameObject ReturnGameObject();

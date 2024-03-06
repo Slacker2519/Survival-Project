@@ -272,6 +272,21 @@ namespace Elite.GangGang.Utils
                 }
             }
         }
+
+        // Get enemies number have to be on scene
+        public static long GetEnemyNumber(double currentPlayTime)
+        {
+            if (currentPlayTime < Constants.TimeIncreaseEnemy)
+                return Constants.EnemyStartNumber;
+            else if (currentPlayTime < Constants.TimeIncreaseEnemy * 2)
+                return Constants.EnemyStartNumber + Constants.NumberIncreaseEnemy;
+            else if (currentPlayTime < Constants.TimeIncreaseEnemy * 3)
+                return Constants.EnemyStartNumber + Constants.NumberIncreaseEnemy * 2;
+            else if (currentPlayTime < Constants.TimeIncreaseEnemy * 4)
+                return Constants.EnemyStartNumber + Constants.NumberIncreaseEnemy * 3;
+            else
+                return Constants.EnemyStartNumber + Constants.NumberIncreaseEnemy * 4;
+        }
     }
 
     public class GeoLocation

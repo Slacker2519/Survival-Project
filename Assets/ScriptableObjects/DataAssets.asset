@@ -32,3 +32,6 @@ MonoBehaviour:
     Speed: 2
     Prefab: {fileID: 8005877050035949135, guid: 18fbd35cd6a08c84db75f293b93b4668, type: 3}
   _configSkillsStatList: []
+  _configBuffsDataList:
+  - Name: 0
+    Prefab: {fileID: 8953218451487772216, guid: 56e15a2b5cf1b444e9047afa59bc1258, type: 3}

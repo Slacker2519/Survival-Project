@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Buff1 : BuffBase
 {
-    public GameObject Prefab;
+    [SerializeField] private GameObject Prefab;
+    [SerializeField] private List<GameObject> BulletsPool = new List<GameObject>();
+
     public override void Execute()
     {
         StartCoroutine(nameof(AutoShoot));
@@ -32,12 +34,26 @@ public class Buff1 : BuffBase
                 float x = transform.position.x + 2 * Mathf.Sin( anglerad);
                 float y = transform.position.y + 2 * Mathf.Cos( anglerad);
                 Vector3 posBullet = new Vector2(x, y);
-                var bullet = Instantiate(Prefab, posBullet, Quaternion.identity);
+                var bullet = SpawnBullet(posBullet, Quaternion.identity);
                 bullet.GetComponent<Rigidbody2D>().velocity = (posBullet - transform.position).normalized * 10;
                 angle += 360 / 20;
                 yield return new WaitForSeconds(0.1f);
             }
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    private GameObject SpawnBullet(Vector3 position, Quaternion quaternion)
+    {
+        GameObject obj = BulletsPool.Find(x => !x.activeSelf);
+        if (obj == null)
+        {
+            obj = Instantiate(Prefab);
+            BulletsPool.Add(obj);
+        }
+        obj.transform.position = position;
+        obj.transform.rotation = quaternion;
+        obj.SetActive(true);
+        return obj;
     }
 }
