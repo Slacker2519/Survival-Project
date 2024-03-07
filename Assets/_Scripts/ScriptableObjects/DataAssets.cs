@@ -1,17 +1,20 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
 public class CharacterConfigData
 {
-    public int Level;
     public CharacterEnum Name;
     public long Health;
     public long Defense;
     public long Damage;
     public long Speed;
+    public int CritRate;
+    public long CritDamage;
+    public long AttackSpeed;
+    public long LevelExpCap;
+    public float PickupRange;
     public GameObject Prefab;
 }
 
@@ -33,6 +36,13 @@ public class SkillConfigData
     public GameObject Prefab;
 }
 
+[Serializable]
+public class BuffConfigData
+{
+    public BuffEnum Name;
+    public GameObject Prefab;
+}
+
 [CreateAssetMenu(fileName = "DataAssets", menuName = "ScripableObjects/DataAssets", order = 0)]
 public class DataAssets : ScriptableObject
 {
@@ -41,18 +51,24 @@ public class DataAssets : ScriptableObject
     private List<CharacterConfigData> _configCharactersStatList;
     public List<CharacterConfigData> ConfigCharactersStatList => _configCharactersStatList;
 
-    [Space (30)]
+    [Space (20)]
 
     [Header("===== Enemies Config Data =====")]
     [SerializeField]
     private List<EnemyConfigData> _configEnemiesStatList;
     public List<EnemyConfigData> ConfigEnemiesStatList => _configEnemiesStatList;
 
-    [Space(30)]
+    [Space(20)]
 
+    [Header("===== Skills Config Data =====")]
     [SerializeField]
     private List<SkillConfigData> _configSkillsStatList;
     public List <SkillConfigData> ConfigSkillsStatList => _configSkillsStatList;
+
+    [Header("===== Buffs Config Data =====")]
+    [SerializeField]
+    private List<BuffConfigData> _configBuffsDataList;
+    public List<BuffConfigData> ConfigBuffsDataList => _configBuffsDataList;
 
     public CharacterConfigData GetCharacterConfig(CharacterEnum characterName)
     {
@@ -67,5 +83,10 @@ public class DataAssets : ScriptableObject
     public SkillConfigData GetSkillConfig(SkillEnum skillName)
     {
         return _configSkillsStatList.Find(x => x.Name == skillName);
+    }
+
+    public BuffConfigData GetBuffConfig(BuffEnum buffName)
+    {
+        return _configBuffsDataList.Find(x => x.Name == buffName);
     }
 }

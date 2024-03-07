@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class BaseCharacter : MonoBehaviour
 {
+    public Dictionary<BuffEnum, Ability> Buffs = new Dictionary<BuffEnum, Ability>();
     protected Rigidbody2D _Rigidbody2d;
 
     public CharacterData CharStats => _CharacterStat;
@@ -12,7 +13,8 @@ public abstract class BaseCharacter : MonoBehaviour
     public bool IsWalking => _isWalking;
     private bool _isWalking;
 
-    public abstract void InitCharacterStats(int level, CharacterEnum name, long health, long defense, long damage, long speed);
+    public abstract void InitCharacterStats(CharacterEnum name, long health, long defense, long damage, long speed,
+        int critRate, long critDamage, long attackSpeed, long levelExpCap, float pickupRange);
 
     protected void Move()
     {

@@ -4,6 +4,5 @@ public enum EventID
     OnPlayerTakeDamage,
     OnEnemyTakeDamage,
     OnPlayerMove,
-    OnShowSkill,
     //Add more event if you want.
 }

@@ -16,13 +16,13 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected virtual void ChasePlayer()
     {
-        Vector3 PlayerPos = GameManager.Instance.Controller.Player.transform.position;
+        //Vector3 PlayerPos = GameManager.Instance.Controller.Player.transform.position;
 
-        if (Vector3.Distance(transform.position, PlayerPos) > _MinDistanceFollow)
-        {
-            Vector3 direction = PlayerPos - transform.position;
-            Vector3 normDic = direction.normalized;
-            transform.position += normDic * _EnemyStat.Speed * Time.deltaTime;
-        }
+        //if (Vector3.Distance(transform.position, PlayerPos) > _MinDistanceFollow)
+        //{
+        //    Vector3 direction = PlayerPos - transform.position;
+        //    Vector3 normDic = direction.normalized;
+        //    transform.position += normDic * _EnemyStat.Speed * Time.deltaTime;
+        //}
     }
 }

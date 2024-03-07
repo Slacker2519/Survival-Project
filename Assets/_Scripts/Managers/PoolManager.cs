@@ -54,6 +54,13 @@ public class PoolManager : SingletonMono<PoolManager>
             _pools.Add(pool);
             new GameObject(pool.PoolName).transform.SetParent(transform);
         }
+
+        foreach(var item in asset.ConfigBuffsDataList)
+        {
+            var pool = new ObjectPool(item.Name.ToString(), item.Prefab);
+            _pools.Add(pool);
+            new GameObject(pool.PoolName).transform.SetParent(transform);
+        }
     }
 
     public void ClearPoolsData()
@@ -74,6 +81,11 @@ public class PoolManager : SingletonMono<PoolManager>
     public GameObject SpawnSkill(SkillEnum skillName, Transform parent = null)
     {
         return GetObjectFromPool(skillName.ToString(), parent);
+    }
+
+    public GameObject SpawnBuff(BuffEnum buffName, Transform parent = null)
+    {
+        return GetObjectFromPool((buffName.ToString()).ToString(), parent);
     }
 
     private GameObject GetObjectFromPool(string poolName, Transform parent = null)

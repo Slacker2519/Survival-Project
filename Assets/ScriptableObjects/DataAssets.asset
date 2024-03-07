@@ -13,18 +13,25 @@ MonoBehaviour:
   m_Name: DataAssets
   m_EditorClassIdentifier: 
   _configCharactersStatList:
-  - Level: 1
-    Name: 0
+  - Name: 0
     Health: 100
     Defense: 50
     Damage: 70
-    Speed: 10
+    Speed: 5
+    CritRate: 0
+    CritDamage: 0
+    AttackSpeed: 0
+    LevelExpCap: 0
+    PickupRange: 0
     Prefab: {fileID: 4013222765616695671, guid: a07bcfa4b97e3a64984c5628d76c2bbf, type: 3}
   _configEnemiesStatList:
   - Name: 0
     Health: 10
     Defense: 10
     Damage: 10
-    Speed: 7
+    Speed: 2
     Prefab: {fileID: 8005877050035949135, guid: 18fbd35cd6a08c84db75f293b93b4668, type: 3}
   _configSkillsStatList: []
+  _configBuffsDataList:
+  - Name: 0
+    Prefab: {fileID: 8953218451487772216, guid: 56e15a2b5cf1b444e9047afa59bc1258, type: 3}

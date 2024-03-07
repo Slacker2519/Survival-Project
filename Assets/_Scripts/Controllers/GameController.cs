@@ -1,3 +1,4 @@
+using Elite.GangGang.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,13 +13,27 @@ public class GameController : MonoBehaviour
 
     public List<BaseEnemy> EnemiesList => _enemiesList;
     [SerializeField] private List<BaseEnemy> _enemiesList;
+    private long _maxEnemiesNumber;
+
+    private double _currentTime;
+
+    private void Awake()
+    {
+        _gameInput = GetComponent<GameInput>();
+        _enemiesList = new List<BaseEnemy>();
+    }
 
     private void Start()
     {
-        _enemiesList = new List<BaseEnemy>();
-
+        _currentTime = 0;
+        _maxEnemiesNumber = GameUtilities.GetEnemyNumber(_currentTime);
         SpawnPlayer();
         SpawnEnemy();
+    }
+
+    private void Update()
+    {
+        _currentTime += Time.deltaTime;
     }
 
     private void SpawnPlayer()
@@ -30,22 +45,28 @@ public class GameController : MonoBehaviour
             _player = player;
             var configManager = DataManager.Instance;
             CharacterConfigData stat = configManager.DataAssets.GetCharacterConfig(characterPicked);
-            _player.InitCharacterStats(stat.Level, stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed);
+            _player.InitCharacterStats(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed, 
+                stat.CritRate, stat.CritDamage, stat.AttackSpeed, stat.LevelExpCap, stat.PickupRange);
             //GameManager.Instance.SaveGameData();
         }
     }
 
     private void SpawnEnemy()
     {
-        EnemyConfigData firstEnemy = DataManager.Instance.DataAssets.GetEnemyConfig(EnemyEnum.Enemy1);
-        GameObject enemyObj = PoolManager.Instance.SpawnEnemy(firstEnemy.Name);
-        enemyObj.transform.position = GetEnemySpawnedPos();
-        if (enemyObj.TryGetComponent<BaseEnemy>(out BaseEnemy enemy))
+        if (EnemiesList.Count < _maxEnemiesNumber)
         {
-            _enemiesList.Add(enemy);
-            EnemyConfigData stat = firstEnemy;
-            enemy.InitEnemyStat(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed);
-            //GameManager.Instance.SaveGameData();
+            var configManager = DataManager.Instance;
+            EnemyConfigData stat = configManager.DataAssets.GetEnemyConfig(EnemyEnum.Enemy1);
+
+            int enemiesNeed = (int)_maxEnemiesNumber - EnemiesList.Count;
+            for (int i = 0; i < enemiesNeed; i++)
+            {
+                GameObject enemyObj = PoolManager.Instance.SpawnEnemy(EnemyEnum.Enemy1);
+                enemyObj.transform.position = GetEnemySpawnedPos();
+                Enemy1 enemy = enemyObj.GetComponent<Enemy1>();
+                enemy.InitEnemyStat(EnemyEnum.Enemy1, stat.Health, stat.Defense, stat.Damage, stat.Speed);
+                _enemiesList.Add(enemy);
+            }
         }
     }
 
