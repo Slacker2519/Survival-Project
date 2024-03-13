@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     // New input system ref
-    public GameInput Input => _gameInput;
+    public GameInput PlayerInput => _gameInput;
     [SerializeField] private GameInput _gameInput;
 
     public BaseCharacter Player => _player;
@@ -70,18 +70,38 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private Vector3 GetEnemySpawnedPos()
+    public Vector3 GetEnemySpawnedPos()
     {
         float xCoordinate;
         float yCoordinate;
+        Vector3 newPos;
 
-        int leftOrRight = Mathf.RoundToInt(Random.Range(0, 2));
+        int leftOrRight = Mathf.RoundToInt(Random.Range(0f, 2f));
         xCoordinate = leftOrRight < 1 ? Random.Range(-.5f, -.1f) : Random.Range(1.1f, 1.5f);
+        float secondXCoordinate = Random.Range(0f, 1f);
 
-        int topOrBottom = Mathf.RoundToInt(Random.Range(0, 2));
+        int topOrBottom = Mathf.RoundToInt(Random.Range(0f, 2f));
         yCoordinate = topOrBottom < 1 ? Random.Range(1.1f, 1.5f) : Random.Range(-.5f, -.1f);
+        float secondYCoordinate = Random.Range(0f, 1f);
         
-        Vector3 newPos = Camera.main.ViewportToWorldPoint(new Vector3(xCoordinate, yCoordinate, 0));
+        switch(Mathf.RoundToInt(Random.Range(0, 3)))
+        {
+            case 0:
+                newPos = Camera.main.ViewportToWorldPoint(new Vector3(xCoordinate, yCoordinate, 0));
+                break;
+            case 1:
+                newPos = Camera.main.ViewportToWorldPoint(new Vector3(secondXCoordinate, yCoordinate, 0));
+                break;
+            case 2:
+                newPos = Camera.main.ViewportToWorldPoint(new Vector3(xCoordinate, secondYCoordinate, 0));
+                break;
+            case 3:
+                newPos = Camera.main.ViewportToWorldPoint(new Vector3(secondXCoordinate, secondYCoordinate, 0));
+                break;
+            default:
+                newPos = Camera.main.ViewportToWorldPoint(new Vector3(secondXCoordinate, secondYCoordinate, 0));
+                break;
+        }
         return new Vector3(newPos.x, newPos.y, 0);
     }
 }
