@@ -1,14 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using UnityEngine;
-
 public class Enemy1 : BaseEnemy
 {
+    private void Start()
+    {
+        _CurrentCoolDown = _ResetPosCoolDown;
+    }
+
     private void Update()
     {
         ChasePlayer();
+        ResetEnemyPos();
     }
+
     public override void InitEnemyStat(EnemyEnum name, long health, long defense, long damage, long speed)
     {
         EnemyStat.Name = name;

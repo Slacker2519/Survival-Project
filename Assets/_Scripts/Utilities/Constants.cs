@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Constants
 {
-    public const long EnemyStartNumber = 10;
+    public const long EnemyStartNumber = 200;
     public const int NumberIncreaseEnemy = 5;
     public const int TimeIncreaseEnemy = 180;
 }
