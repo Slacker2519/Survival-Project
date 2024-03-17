@@ -19,7 +19,7 @@ public abstract class BaseCharacter : MonoBehaviour
     protected void Move()
     {
         GameController gameController = GameManager.Instance.Controller;
-        Vector2 inputVector = gameController.Input.GetMovementVectorNormalized();
+        Vector2 inputVector = gameController.PlayerInput.GetMovementVectorNormalized();
         Vector2 moveDir = new Vector2(inputVector.x, inputVector.y);
 
         _Rigidbody2d.MovePosition(_Rigidbody2d.position + (moveDir.normalized * _CharacterStat.Speed * Time.fixedDeltaTime));
