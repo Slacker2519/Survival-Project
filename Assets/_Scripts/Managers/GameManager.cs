@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : SingletonMono<GameManager>
 {
     [SerializeField] private GameController _gameControllerPrefab;
-    [SerializeField] private BackGround _bg;
+    //[SerializeField] private BackGround _bg;
     public GameController Controller => _controller;
     private GameController _controller;
 
@@ -16,7 +16,7 @@ public class GameManager : SingletonMono<GameManager>
         {
             _controller = Instantiate(_gameControllerPrefab);
             StartCoroutine(WaitIilInit(() => {
-            _bg.SetObjectTrans(_controller.Player.transform);
+            //_bg.SetObjectTrans(_controller.Player.transform);
             }));
         }
     }
