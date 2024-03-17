@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Buff1 : BuffBase
 {
-    [SerializeField] private GameObject Prefab;
-    [SerializeField] private List<GameObject> BulletsPool = new List<GameObject>();
+    [SerializeField] private Bullet_Buff bullet;
+    [SerializeField] private List<Bullet_Buff> BulletsPool = new List<Bullet_Buff>();
 
     public override void Execute()
     {
@@ -43,17 +43,17 @@ public class Buff1 : BuffBase
         }
     }
 
-    private GameObject SpawnBullet(Vector3 position, Quaternion quaternion)
+    private Bullet_Buff SpawnBullet(Vector3 position, Quaternion quaternion)
     {
-        GameObject obj = BulletsPool.Find(x => !x.activeSelf);
+        Bullet_Buff obj = BulletsPool.Find(x => !x.gameObject.activeSelf);
         if (obj == null)
         {
-            obj = Instantiate(Prefab);
+            obj = Instantiate(bullet);
             BulletsPool.Add(obj);
         }
         obj.transform.position = position;
         obj.transform.rotation = quaternion;
-        obj.SetActive(true);
+        obj.gameObject.SetActive(true);
         return obj;
     }
 }

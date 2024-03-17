@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3718467100171059861}
   - component: {fileID: 1335428768595313099}
   - component: {fileID: 6393734415972254459}
+  - component: {fileID: 6750974145007487680}
   m_Layer: 0
   m_Name: Character1
   m_TagString: Untagged
@@ -133,8 +134,24 @@ MonoBehaviour:
     Defense: 0
     Damage: 0
     Speed: 0
-  _Rigidbody2d: {fileID: 1335428768595313099}
-  _RotateSpeed: 0
+    CritRate: 0
+    CritDamage: 0
+    AttackSpeed: 0
+    LevelExpCap: 0
+    CurrentExp: 0
+    PickupRange: 0
+--- !u!114 &6750974145007487680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4013222765616695671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2defe26cb31591f4b899743d3da66757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4497771451236534006
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public abstract class BaseCharacter : MonoBehaviour
 
     public abstract void InitCharacterStats(CharacterEnum name, long health, long defense, long damage, long speed,
         int critRate, long critDamage, long attackSpeed, long levelExpCap, float pickupRange);
-
+    public abstract void TakeDamage(long damage);
     protected void Move()
     {
         GameController gameController = GameManager.Instance.Controller;
@@ -25,4 +25,5 @@ public abstract class BaseCharacter : MonoBehaviour
         _Rigidbody2d.MovePosition(_Rigidbody2d.position + (moveDir.normalized * _CharacterStat.Speed * Time.fixedDeltaTime));
         _isWalking = moveDir != Vector2.zero;
     }
+
 }
