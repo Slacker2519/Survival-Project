@@ -32,6 +32,12 @@ public class Character1 : BaseCharacter
         CharStats.LevelExpCap = levelExpCap;
         CharStats.PickupRange = pickupRange;
     }
+
+    public override void TakeDamage(long damage)
+    {
+        CharStats.Health -= damage; 
+        Debug.Log("Take Damage"+damage);
+    }
 }
 
 

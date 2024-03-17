@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1873388699901804100}
   m_Layer: 0
   m_Name: Enemy1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
     Name: 0
     Health: 0
     Defense: 0
-    Damage: 0
+    Damage: 20
     Speed: 0
   _MinDistanceFollow: 1.5
   _MaxDistanceFollow: 30
