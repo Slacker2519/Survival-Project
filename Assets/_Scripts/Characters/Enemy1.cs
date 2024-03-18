@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class Enemy1 : BaseEnemy
 {
     private void Start()
@@ -20,7 +21,7 @@ public class Enemy1 : BaseEnemy
         EnemyStat.Damage = damage;
         EnemyStat.Speed = speed;
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Bullet"))
