@@ -13,9 +13,19 @@ public class GameController : MonoBehaviour
 
     public List<BaseEnemy> EnemiesList => _enemiesList;
     [SerializeField] private List<BaseEnemy> _enemiesList;
-    private long _maxEnemiesNumber;
+    private int _maxEnemiesNumber;
 
     private double _currentTime;
+
+    public int CurrentWave => _currentWave;
+    private int _currentWave;
+
+    public float EnemySpawnTime => _enemySpawnTime;
+    private float _enemySpawnTime;
+    private float _currentEnemySpawnTime; 
+
+    public int NumberSpawnEnemy => _numberSpawnEnemy;
+    private int _numberSpawnEnemy;
 
     private void Awake()
     {
@@ -25,15 +35,41 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        _currentTime = 0;
-        _maxEnemiesNumber = GameUtilities.GetEnemyNumber(_currentTime);
+        _currentWave = 0;
+        _currentTime = Constants.WaveDuration;
+        _currentEnemySpawnTime = 0;
+        _numberSpawnEnemy = GameUtilities.GetEnemySpawnNumber(_currentWave);
+        _enemySpawnTime = GameUtilities.GetEnemySpawnDuration(_currentWave);
+        _maxEnemiesNumber = GameUtilities.GetEnemyMaxNumber(_currentWave);
         SpawnPlayer();
         SpawnEnemy();
     }
 
     private void Update()
     {
-        _currentTime += Time.deltaTime;
+        _currentTime -= Time.deltaTime;
+        _currentEnemySpawnTime += Time.deltaTime;
+
+        CalculateEnemyWave();
+    }
+
+    private void CalculateEnemyWave()
+    {
+        if (_currentTime <= 0)
+        {
+            _currentTime = Constants.WaveDuration;
+            _currentWave++;
+            _numberSpawnEnemy = GameUtilities.GetEnemySpawnNumber(_currentWave);
+            _enemySpawnTime = GameUtilities.GetEnemySpawnDuration(_currentWave);
+            _maxEnemiesNumber = GameUtilities.GetEnemyMaxNumber(_currentWave);
+            SpawnEnemy();
+        }
+
+        if (_currentEnemySpawnTime >= _enemySpawnTime)
+        {
+            _currentEnemySpawnTime = 0;
+            SpawnEnemy();
+        }
     }
 
     private void SpawnPlayer()
@@ -58,8 +94,7 @@ public class GameController : MonoBehaviour
             var configManager = DataManager.Instance;
             EnemyConfigData stat = configManager.DataAssets.GetEnemyConfig(EnemyEnum.Enemy1);
 
-            int enemiesNeed = (int)_maxEnemiesNumber - EnemiesList.Count;
-            for (int i = 0; i < enemiesNeed; i++)
+            for (int i = 0; i < Mathf.RoundToInt(Mathf.Clamp(_numberSpawnEnemy, 0, _numberSpawnEnemy)); i++)
             {
                 GameObject enemyObj = PoolManager.Instance.SpawnEnemy(EnemyEnum.Enemy1);
                 enemyObj.transform.position = GetEnemySpawnedPos();
