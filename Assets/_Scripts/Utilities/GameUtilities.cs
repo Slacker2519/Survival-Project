@@ -273,20 +273,41 @@ namespace Elite.GangGang.Utils
             }
         }
 
-        // Get enemies number have to be on scene
-        public static long GetEnemyNumber(double currentPlayTime)
+        #region Get enemies number
+
+        public static List<int> MaxEnemyNumber = new List<int> { 20, 30, 40, 50, 100 };
+        public static List<float> SpawnEnemyDuration = new List<float> { .2f, .2f, .2f, .2f, 
+            .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f };
+        public static List<int> EnemySpawnNumber = new List<int> { 2, 3, 4, 5, 6, 10, 11, 12, 13, 17, 18, 19, 20 };
+
+        public static int GetEnemyMaxNumber(int waveNumber)
         {
-            if (currentPlayTime < Constants.TimeIncreaseEnemy)
-                return Constants.EnemyStartNumber;
-            else if (currentPlayTime < Constants.TimeIncreaseEnemy * 2)
-                return Constants.EnemyStartNumber + Constants.NumberIncreaseEnemy;
-            else if (currentPlayTime < Constants.TimeIncreaseEnemy * 3)
-                return Constants.EnemyStartNumber + Constants.NumberIncreaseEnemy * 2;
-            else if (currentPlayTime < Constants.TimeIncreaseEnemy * 4)
-                return Constants.EnemyStartNumber + Constants.NumberIncreaseEnemy * 3;
-            else
-                return Constants.EnemyStartNumber + Constants.NumberIncreaseEnemy * 4;
+            if (waveNumber >= MaxEnemyNumber.Count)
+            {
+                return 100;
+            }
+            return MaxEnemyNumber[waveNumber];
         }
+
+        public static float GetEnemySpawnDuration(int waveNumber)
+        {
+            if (waveNumber >= SpawnEnemyDuration.Count)
+            {
+                return 0.1f;
+            }
+            return SpawnEnemyDuration[waveNumber];
+        }
+
+        public static int GetEnemySpawnNumber(int waveNumber)
+        {
+            if (waveNumber >= EnemySpawnNumber.Count)
+            {
+                return 20;
+            }
+            return EnemySpawnNumber[waveNumber];
+        }
+
+        #endregion
     }
 
     public class GeoLocation
