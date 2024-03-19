@@ -18,92 +18,96 @@ namespace Gameplay
         Coroutine animHealthCorou;
         Coroutine waitHideHealthBarCorou;
 
-        ////BodyBase bodyAttach;
+        BaseCharacter bodyAttach;
+        bool isAnim = true;
+        long totalHealth;
 
+        public void DeActiveObject()
+        {
+            if (animHealthCorou != null)
+            {
+                StopCoroutine(animHealthCorou);
+            }
 
-        //public void DeActiveObject()
-        //{
-        //    if (animHealthCorou != null)
-        //    {
-        //        StopCoroutine(animHealthCorou);
-        //    }
+            if (waitHideHealthBarCorou != null)
+            {
+                StopCoroutine(waitHideHealthBarCorou);
+            }
+            StopCoroutine(ShowHealthBarIfAuto());
+            StopCoroutine(AnimHealthBar());
+        }
 
-        //    if (waitHideHealthBarCorou != null)
-        //    {
-        //        StopCoroutine(waitHideHealthBarCorou);
-        //    }
-        //    StopCoroutine(ShowHealthBarIfAuto());
-        //    StopCoroutine(AnimHealthBar());
-        //}
+        public void Setup(BaseCharacter bodyBase)
+        {
+            bodyAttach = bodyBase;
+            totalHealth = bodyAttach.CharStats.Health;
+            UpdateHealthBar(null);
+            this.RegisterEvent(EventID.OnPlayerTakeDamage,UpdateHealthBar);
+            //gameObject.SetActive(!autoHideHealthBar);
+        }
 
-        //public void Setup(BodyBase bodyBase)
-        //{
-        //    bodyAttach = bodyBase;
-        //    gameObject.SetActive(!autoHideHealthBar);
-        //}
+        public void UpdateHealthBar(object data)
+        {
+            if (bodyAttach == null)
+            {
+                return;
+            }
 
-        //public void UpdateHealthBar(bool isAnim)
-        //{
-        //    if (bodyAttach == null)
-        //    {
-        //        return;
-        //    }
+            //if (bodyAttach.CharStats.Health <= 0)
+            //{
+            //    StopAllCoroutines();
+            //    return;
+            //}
 
-        //    if (bodyAttach.CurrentHealth <= 0)
-        //    {
-        //        StopAllCoroutines();
-        //        return;
-        //    }
+            healthText.text = bodyAttach.CharStats.Health.ToString();
+            healthBarFill.fillAmount = (float)bodyAttach.CharStats.Health / totalHealth;
 
-        //    healthText.text = bodyAttach.CurrentHealth.ToString();
-        //    healthBarFill.fillAmount = (float)bodyAttach.CurrentHealth / bodyAttach.TotalHealth;
+            if (animHealthCorou != null)
+            {
+                StopCoroutine(animHealthCorou);
+            }
 
-        //    if (animHealthCorou != null)
-        //    {
-        //        StopCoroutine(animHealthCorou);
-        //    }
+            if (isAnim)
+            {
+                if (healthBarFill.fillAmount >= healthBarFillBg.fillAmount)
+                {
+                    healthBarFillBg.fillAmount = healthBarFill.fillAmount;
+                }
+                else
+                {
+                    animHealthCorou = StartCoroutine(AnimHealthBar());
+                }
+            }
+            else
+            {
+                healthBarFillBg.fillAmount = healthBarFill.fillAmount;
+            }
 
-        //    if (isAnim)
-        //    {
-        //        if (healthBarFill.fillAmount >= healthBarFillBg.fillAmount)
-        //        {
-        //            healthBarFillBg.fillAmount = healthBarFill.fillAmount;
-        //        }
-        //        else
-        //        {
-        //            animHealthCorou = StartCoroutine(AnimHealthBar());
-        //        }
-        //    }
-        //    else
-        //    {
-        //        healthBarFillBg.fillAmount = healthBarFill.fillAmount;
-        //    }
+            if (autoHideHealthBar)
+            {
+                if (waitHideHealthBarCorou != null)
+                {
+                    StopCoroutine(waitHideHealthBarCorou);
+                }
 
-        //    if (autoHideHealthBar)
-        //    {
-        //        if (waitHideHealthBarCorou != null)
-        //        {
-        //            StopCoroutine(waitHideHealthBarCorou);
-        //        }
+                StartCoroutine(ShowHealthBarIfAuto());
+            }
+        }
 
-        //        StartCoroutine(ShowHealthBarIfAuto());
-        //    }
-        //}
+        IEnumerator AnimHealthBar()
+        {
+            while (healthBarFillBg.fillAmount > healthBarFill.fillAmount)
+            {
+                healthBarFillBg.fillAmount -= Time.deltaTime / 5;
+                yield return null;
+            }
+        }
 
-        //IEnumerator AnimHealthBar()
-        //{
-        //    while (healthBarFillBg.fillAmount > healthBarFill.fillAmount)
-        //    {
-        //        healthBarFillBg.fillAmount -= Time.deltaTime / 5;
-        //        yield return null;
-        //    }
-        //}
-
-        //IEnumerator ShowHealthBarIfAuto()
-        //{
-        //    gameObject.SetActive(true);
-        //    yield return new WaitForSeconds(2);
-        //    gameObject.SetActive(false);
-        //}
+        IEnumerator ShowHealthBarIfAuto()
+        {
+            gameObject.SetActive(true);
+            yield return new WaitForSeconds(2);
+            gameObject.SetActive(false);
+        }
     }
 }

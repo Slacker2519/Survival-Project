@@ -1,4 +1,5 @@
 using Elite.GangGang.Utils;
+using Gameplay;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -83,6 +84,11 @@ public class GameController : MonoBehaviour
             CharacterConfigData stat = configManager.DataAssets.GetCharacterConfig(characterPicked);
             _player.InitCharacterStats(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed, 
                 stat.CritRate, stat.CritDamage, stat.AttackSpeed, stat.LevelExpCap, stat.PickupRange);
+            HealthBar healthBar = FindObjectOfType<HealthBar>();
+            if (healthBar)
+            {
+                healthBar.Setup(character.GetComponent<BaseCharacter>());
+            }
             //GameManager.Instance.SaveGameData();
         }
     }

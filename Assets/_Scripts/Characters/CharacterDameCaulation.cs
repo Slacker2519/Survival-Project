@@ -15,7 +15,7 @@ public class CharacterDameCaulation : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            //Debug.Log("trigger");
+            Debug.Log("trigger");
             BaseEnemy enemy = collision.GetComponent<BaseEnemy>();
             if (enemy == null)
             {
