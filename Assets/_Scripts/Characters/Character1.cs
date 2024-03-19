@@ -4,6 +4,7 @@ using UnityEngine;
 public class Character1 : BaseCharacter
 {
 
+
     private void Awake()
     {
         _Rigidbody2d = GetComponent<Rigidbody2D>();
@@ -13,7 +14,6 @@ public class Character1 : BaseCharacter
     {
         Move();
         this.PostEvent(EventID.OnPlayerMove, this.transform);
-        Debug.Log(Buffs.Count);
         
     }
 
@@ -35,7 +35,11 @@ public class Character1 : BaseCharacter
 
     public override void TakeDamage(long damage)
     {
-        CharStats.Health -= damage; 
+
+        CharStats.Health -= damage;
+        if(CharStats.Health<0) CharStats.Health = 0;
+        //Debug.Log(CharStats.Health);
+        this.PostEvent(EventID.OnPlayerTakeDamage);
         Debug.Log("Take Damage"+damage);
     }
 
