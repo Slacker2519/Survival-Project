@@ -38,6 +38,8 @@ public class Character1 : BaseCharacter
         CharStats.Health -= damage; 
         Debug.Log("Take Damage"+damage);
     }
+
+
 }
 
 
