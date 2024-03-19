@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configCharactersStatList:
   - Name: 0
-    Health: 100
+    Health: 1000
     Defense: 50
     Damage: 70
     Speed: 5
