@@ -31,11 +31,11 @@ public class Enemy1 : BaseEnemy
             {
                 return;
             }
-            if (!bullet.damageAble)
+            if (!bullet.DamageValue.damageAble)
             {
                 return;
             }
-            long damage = bullet.damage;
+            long damage = bullet.DamageValue.value;
             EnemyStat.Health -= damage;
             if (EnemyStat.Health < 0)
             {
