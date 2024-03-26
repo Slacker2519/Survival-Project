@@ -23,5 +23,11 @@ public enum BuffEnum
     Buff2,
     Buff3,
 }
+public enum DeBuffEnum 
+{
+    DeBuff1,
+    DeBuff2,
+    DeBuff3,
+}
 
 
