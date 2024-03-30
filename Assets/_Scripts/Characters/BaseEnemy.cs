@@ -12,7 +12,7 @@ public abstract class BaseEnemy : MonoBehaviour
     [SerializeField] protected float _ResetPosCoolDown = 2f;
     protected float _CurrentCoolDown;
 
-    public abstract void InitEnemyStat(EnemyEnum name, long health, long defense, long damage, long speed);
+    public abstract void InitEnemyStat(EnemyEnum name, long health, long defense, long damage, long speed,EnemyRank rank);
 
     protected virtual void ChasePlayer()
     {

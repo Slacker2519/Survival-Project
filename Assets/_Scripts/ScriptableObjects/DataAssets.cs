@@ -22,6 +22,7 @@ public class CharacterConfigData
 public class EnemyConfigData
 {
     public EnemyEnum Name;
+    public EnemyRank Rank;
     public long Health;
     public long Defense;
     public long Damage;
