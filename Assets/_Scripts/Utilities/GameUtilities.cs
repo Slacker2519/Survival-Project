@@ -279,7 +279,15 @@ namespace Elite.GangGang.Utils
         public static List<float> SpawnEnemyDuration = new List<float> { .2f, .2f, .2f, .2f, 
             .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f };
         public static List<int> EnemySpawnNumber = new List<int> { 2, 3, 4, 5, 6, 10, 11, 12, 13, 17, 18, 19, 20 };
+        public static LevelDataSO LoadClassicLevelData(int level)
+        {
 
+            Debug.Log("Load Level Data " + level);
+
+            string resource = "LevelData/ " + level;
+            LevelDataSO levelInfo = Resources.Load<LevelDataSO>(resource);
+            return levelInfo;
+        }
         public static int GetEnemyMaxNumber(int waveNumber)
         {
             if (waveNumber >= MaxEnemyNumber.Count)

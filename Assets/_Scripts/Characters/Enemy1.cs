@@ -13,13 +13,14 @@ public class Enemy1 : BaseEnemy
         ResetEnemyPos();
     }
 
-    public override void InitEnemyStat(EnemyEnum name, long health, long defense, long damage, long speed)
+    public override void InitEnemyStat(EnemyEnum name, long health, long defense, long damage, long speed, EnemyRank rank)
     {
         EnemyStat.Name = name;
         EnemyStat.Health = health;
         EnemyStat.Defense = defense;
         EnemyStat.Damage = damage;
         EnemyStat.Speed = speed;
+        EnemyStat.Rank = rank;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

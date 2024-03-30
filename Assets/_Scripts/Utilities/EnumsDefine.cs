@@ -4,7 +4,14 @@ public enum CharacterEnum
     Character2, 
     Character3, 
 }
-
+public enum EnemyRank
+{
+    Small,
+    Medium,
+    Big,
+    MiniBoss,
+    Boss
+}
 public enum EnemyEnum
 {
     Enemy1, 
