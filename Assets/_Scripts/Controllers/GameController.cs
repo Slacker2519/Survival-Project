@@ -2,6 +2,7 @@ using Elite.GangGang.Utils;
 using Gameplay;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -13,12 +14,12 @@ public class GameController : MonoBehaviour
     public BaseCharacter Player => _player;
     private BaseCharacter _player;
     private LevelDataSO _levelDataSO;
-    private PharseData _curPharse;
+    private WaveData _curPharse;
     public List<BaseEnemy> EnemiesList => _enemiesList;
     [SerializeField] private List<BaseEnemy> _enemiesList;
     private int _maxEnemiesNumber;
 
-    private double _currentTime;
+    [SerializeField] private double _currentTime;
 
     public int CurrentWave => _currentWave;
     private int _currentWave;
@@ -40,15 +41,16 @@ public class GameController : MonoBehaviour
     {
         _currentWave = 0;
         _levelDataSO = GameUtilities.LoadClassicLevelData(0);
+        Debug.Log(_levelDataSO.name);
         _curPharse = _levelDataSO.pharseDatas[_currentWave];
         _currentTime = Constants.WaveDuration;
         _currentEnemySpawnTime = 0;
 
         _numberSpawnEnemy = _curPharse.SpawnAmount;  //GameUtilities.GetEnemySpawnNumber(_currentWave);
-        _enemySpawnTime = _curPharse.startTime;  /*GameUtilities.GetEnemySpawnDuration(_currentWave);*/
+        _enemySpawnTime = _curPharse.SpawnInterval;  /*GameUtilities.GetEnemySpawnDuration(_currentWave);*/
         _maxEnemiesNumber = _curPharse.MaxEnemy;  /*GameUtilities.GetEnemyMaxNumber(_currentWave);*/
         SpawnPlayer();
-        SpawnEnemy();
+        SpawnEnemyByWave(_curPharse.WaveEnemyData);
     }
 
     private void Update()
@@ -67,15 +69,17 @@ public class GameController : MonoBehaviour
             _currentWave++;
             _curPharse = _levelDataSO.pharseDatas[_currentWave];
             _numberSpawnEnemy = _curPharse.SpawnAmount;  //GameUtilities.GetEnemySpawnNumber(_currentWave);
-            _enemySpawnTime = _curPharse.startTime;  /*GameUtilities.GetEnemySpawnDuration(_currentWave);*/
+            _enemySpawnTime = _curPharse.SpawnInterval;  /*GameUtilities.GetEnemySpawnDuration(_currentWave);*/
             _maxEnemiesNumber = _curPharse.MaxEnemy;  /*GameUtilities.GetEnemyMaxNumber(_currentWave);*/
-            SpawnEnemy();
+            SpawnEnemyByWave(_curPharse.WaveEnemyData);
+            //SpawnEnemy();
+            //SpawnEnemy()
         }
-
+        
         if (_currentEnemySpawnTime >= _enemySpawnTime)
         {
             _currentEnemySpawnTime = 0;
-            SpawnEnemy();
+            SpawnEnemyByWave(_curPharse.WaveEnemyData);
         }
     }
 
@@ -99,7 +103,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void SpawnEnemy()
+   /* private void SpawnEnemy()
     {
         if (EnemiesList.Count < _maxEnemiesNumber)
         {
@@ -115,10 +119,27 @@ public class GameController : MonoBehaviour
                 _enemiesList.Add(enemy);
             }
         }
-    }
-    private void SpawnEnemy(int _maxEnemiesNumber, EnemyEnum enemyEnum)
+    }*/
+
+    void SpawnEnemyByWave(List<EnemyWaveData> _listEnemyWava)
     {
         if (EnemiesList.Count < _maxEnemiesNumber)
+        {
+            List<EnemyWaveData> listEnemyWav = _listEnemyWava;
+            for (int i = 0; i < listEnemyWav.Count; i++)
+            {
+                EnemyWaveData data = listEnemyWav[i];
+                //Random enemy here
+
+                SpawnEnemy(data.number, data.rank);
+            }
+        }
+        
+    }
+    private void SpawnEnemy(int _maxEnemiesNumber,EnemyRank rank, EnemyEnum enemyEnum = EnemyEnum.Enemy1)
+    {
+        int numEnemtRemain = EnemiesList.Count(enemy => enemy.EnemyStat.Rank == rank);
+        if (numEnemtRemain < _maxEnemiesNumber)
         {
             var configManager = DataManager.Instance;
             EnemyConfigData stat = configManager.DataAssets.GetEnemyConfig(enemyEnum);

@@ -284,8 +284,9 @@ namespace Elite.GangGang.Utils
 
             Debug.Log("Load Level Data " + level);
 
-            string resource = "LevelData/ " + level;
+            string resource = "LevelData/" + level;
             LevelDataSO levelInfo = Resources.Load<LevelDataSO>(resource);
+            Debug.Log("Loaded " + levelInfo.name);
             return levelInfo;
         }
         public static int GetEnemyMaxNumber(int waveNumber)
