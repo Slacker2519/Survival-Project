@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bullet_Buff : Bullet 
 {
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
