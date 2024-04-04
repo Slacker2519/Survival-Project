@@ -26,13 +26,13 @@ public enum SkillEnum
 }
 public enum BuffEnum 
 {
-    Buff1,
+    Rocket,
     Buff2,
     Buff3,
 }
 public enum DeBuffEnum 
 {
-    DeBuff1,
+    BodyBurn,
     DeBuff2,
     DeBuff3,
 }
