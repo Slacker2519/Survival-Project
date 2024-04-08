@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public abstract class BaseEnemy : MonoBehaviour
+public abstract class BaseEnemy : BaseBody<EnemyData>
 {
     protected Rigidbody2D _Rigidbody2d;
 
-    public EnemyData EnemyStat => _EnemyStat;
-    [SerializeField] protected EnemyData _EnemyStat;
+    public EnemyData EnemyStat => Stats;
+    //[SerializeField] protected EnemyData _EnemyStat;
     [Space(10)]
     [SerializeField] protected float _MinDistanceFollow = 1.5f;
     [SerializeField] protected float _MaxDistanceFollow = 10;
@@ -18,7 +18,7 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, GameManager.Instance.Controller.Player.transform.position) > _MinDistanceFollow)
         {
-            transform.position = Vector3.MoveTowards(transform.position, GameManager.Instance.Controller.Player.transform.position, _EnemyStat.Speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, GameManager.Instance.Controller.Player.transform.position, EnemyStat.Speed * Time.deltaTime);
         }
     }
 
