@@ -7,10 +7,13 @@ public class DebuffBurn : DebuffBase
     Coroutine BurnEffet;
     void Start()
     {
-        Body = FindObjectOfType<BaseCharacter>();
     }
     public override void Execute(object data)
     {
+        if (Body == null)
+        {
+            return;
+        }
         if (BurnEffet != null)
         {
             StopCoroutine(BurnEffet);
@@ -21,7 +24,6 @@ public class DebuffBurn : DebuffBase
             BurnEffet = StartCoroutine(Burn(1));
         }
     }
-
     public override GameObject ReturnGameObject()
     {
         return gameObject;

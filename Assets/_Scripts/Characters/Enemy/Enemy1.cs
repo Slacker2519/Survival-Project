@@ -46,4 +46,8 @@ public class Enemy1 : BaseEnemy
         }
     }
 
+    public override void TakeDamage(long damage)
+    {
+        //throw new System.NotImplementedException();
+    }
 }
