@@ -8,10 +8,6 @@ public class CharacterData
 {
     public int Level;
     public CharacterEnum Name;
-    public long Health;
-    public long Defense;
-    public long Damage;
-    public long Speed;
     public int CritRate;
     public long CritDamage;
     public long AttackSpeed;
@@ -19,15 +15,10 @@ public class CharacterData
     public long CurrentExp;
     public float PickupRange;
 
-    public CharacterData(CharacterEnum name, long health, long defense, long damage, long speed, 
-        int critRate, long critDamage, long attackSpeed, long levelExpCap, float pickupRange)
+    public CharacterData(CharacterEnum name,int critRate, long critDamage, long attackSpeed, long levelExpCap, float pickupRange)
     {
         Level = 1;
         Name = name;
-        Health = health;
-        Defense = defense;
-        Damage = damage;
-        Speed = speed;
         CritRate = critRate;
         CritDamage = critDamage;
         AttackSpeed = attackSpeed;

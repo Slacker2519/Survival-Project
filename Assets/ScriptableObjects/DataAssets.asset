@@ -26,6 +26,7 @@ MonoBehaviour:
     Prefab: {fileID: 4013222765616695671, guid: a07bcfa4b97e3a64984c5628d76c2bbf, type: 3}
   _configEnemiesStatList:
   - Name: 0
+    Rank: 0
     Health: 10
     Defense: 10
     Damage: 10
@@ -35,3 +36,6 @@ MonoBehaviour:
   _configBuffsDataList:
   - Name: 0
     Prefab: {fileID: 8953218451487772216, guid: 56e15a2b5cf1b444e9047afa59bc1258, type: 3}
+  _configDeBuffsDataList:
+  - Name: 0
+    Prefab: {fileID: 7136822451757327572, guid: f689ddff7a57cd34d84f9764a39d4a48, type: 3}

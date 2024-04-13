@@ -5,9 +5,9 @@ using UnityEngine;
 public abstract class DebuffBase : MonoBehaviour, IDebuff
 {
 
-    [SerializeField] protected DeBuffEnum Name;
-    [SerializeField] protected int Level;
-    [SerializeField] protected object Body;
+    public DeBuffEnum Name;
+    public int Level;
+    public BaseBody Body;
     public abstract void Execute(object data);
 
     public abstract GameObject ReturnGameObject();

@@ -4,6 +4,8 @@ public class Enemy1 : BaseEnemy
 {
     private void Start()
     {
+        RB = GetComponent<Rigidbody2D>();
+        Colliderr = GetComponent<Collider2D>();
         _CurrentCoolDown = _ResetPosCoolDown;
     }
 
@@ -16,10 +18,10 @@ public class Enemy1 : BaseEnemy
     public override void InitEnemyStat(EnemyEnum name, long health, long defense, long damage, long speed, EnemyRank rank)
     {
         EnemyStat.Name = name;
-        EnemyStat.Health = health;
-        EnemyStat.Defense = defense;
-        EnemyStat.Damage = damage;
-        EnemyStat.Speed = speed;
+        BaseStat.Health = health;
+        BaseStat.Defense = defense;
+        BaseStat.Damage = damage;
+        BaseStat.Speed = speed;
         EnemyStat.Rank = rank;
     }
 
@@ -37,8 +39,8 @@ public class Enemy1 : BaseEnemy
                 return;
             }
             long damage = bullet.DamageValue.value;
-            EnemyStat.Health -= damage;
-            if (EnemyStat.Health < 0)
+            BaseStat.Health -= damage;
+            if (BaseStat.Health < 0)
             {
                 PoolManager.Instance.ReturnObject(this.gameObject, name.ToString());
             }

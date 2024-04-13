@@ -40,7 +40,7 @@ namespace Gameplay
         public void Setup(BaseCharacter bodyBase)
         {
             bodyAttach = bodyBase;
-            totalHealth = bodyAttach.CharStats.Health;
+            totalHealth = bodyAttach.BaseStat.Health;
             UpdateHealthBar(null);
             this.RegisterEvent(EventID.OnPlayerTakeDamage,UpdateHealthBar);
             //gameObject.SetActive(!autoHideHealthBar);
@@ -59,8 +59,8 @@ namespace Gameplay
             //    return;
             //}
 
-            healthText.text = bodyAttach.CharStats.Health.ToString();
-            healthBarFill.fillAmount = (float)bodyAttach.CharStats.Health / totalHealth;
+            healthText.text = bodyAttach.BaseStat.Health.ToString();
+            healthBarFill.fillAmount = (float)bodyAttach.BaseStat.Health / totalHealth;
 
             if (animHealthCorou != null)
             {

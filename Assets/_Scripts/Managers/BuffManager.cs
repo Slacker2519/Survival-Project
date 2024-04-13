@@ -19,6 +19,10 @@ public class BuffManager : MonoBehaviour
 
             SpawnBuffForCharacter();
         }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            SpawnDebuff(FindObjectOfType<BaseCharacter>(),DeBuffEnum.BodyBurn);
+        }
     }
     public void SpawnBuffForCharacter()
     {
@@ -42,22 +46,23 @@ public class BuffManager : MonoBehaviour
         }
     }
 
-    public void SpawnDebuffForCharacter(BaseCharacter character, DeBuffEnum nameDebuff)
+    public void SpawnDebuff(BaseBody body, DeBuffEnum nameDebuff)
     {
-        if (character)
+        if (body)
         {
-            var debuff = PoolManager.Instance.SpawnDeBuff(DeBuffEnum.BodyBurn, character.transform);
-            BuffEnum buffenum = debuff.GetComponent<BuffBase>().Name;
-            if (character.Buffs.ContainsKey(buffenum))
+            var debuff = PoolManager.Instance.SpawnDeBuff(DeBuffEnum.BodyBurn, body.transform);
+            DeBuffEnum debuffenum = debuff.GetComponent<DebuffBase>().Name;
+            if (body.DeBuffs.ContainsKey(debuffenum))
             {
-                character.Buffs[buffenum].Upgrade();
+                body.DeBuffs[debuffenum].Upgrade();
+                body.DeBuffs[debuffenum].Execute(null);
             }
             else
             {
 
-                character.Buffs.Add(buffenum, debuff.GetComponent<Ability>());
+                body.DeBuffs.Add(debuffenum, debuff.GetComponent<IDebuff>());
                 debuff.transform.localScale = Vector3.zero;
-                debuff.GetComponent<Ability>().Execute();
+                debuff.GetComponent<IDebuff>().Execute(null);
             }
         }
     }
