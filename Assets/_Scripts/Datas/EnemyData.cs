@@ -7,18 +7,18 @@ using UnityEngine;
 public class EnemyData
 {
     public EnemyEnum Name;
-    public long Health;
-    public long Defense;
-    public long Damage;
-    public long Speed;
+    //public long Health;
+    //public long Defense;
+    //public long Damage;
+    //public long Speed;
     public EnemyRank Rank;
-    public EnemyData(EnemyEnum name, long health, long defense, long damage, long speed, EnemyRank rank)
+    public EnemyData(EnemyEnum name, EnemyRank rank)
     {
         Name = name;
-        Health = health;
-        Defense = defense;
-        Damage = damage;
-        Speed = speed;
+        //Health = health;
+        //Defense = defense;
+        //Damage = damage;
+        //Speed = speed;
         Rank = rank;    
     }
 }

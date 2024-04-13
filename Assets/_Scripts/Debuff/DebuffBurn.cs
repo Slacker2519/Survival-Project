@@ -5,23 +5,33 @@ using UnityEngine;
 public class DebuffBurn : DebuffBase
 {
     Coroutine BurnEffet;
+    float interval;
+    float time;
+    float tempTime;
     void Start()
     {
+
     }
     public override void Execute(object data)
     {
+
         if (Body == null)
         {
-            return;
+            Body = FindObjectOfType<BaseCharacter>();
         }
         if (BurnEffet != null)
         {
-            StopCoroutine(BurnEffet);
-            BurnEffet = null;
+            //StopCoroutine(BurnEffet);
+            //BurnEffet = null;
+            tempTime = time;
+
         }
         else
         {
-            BurnEffet = StartCoroutine(Burn(1));
+            time = 10;
+            interval = 0.5f;
+            tempTime = time;
+            BurnEffet = StartCoroutine(Burn(30,interval));
         }
     }
     public override GameObject ReturnGameObject()
@@ -38,18 +48,18 @@ public class DebuffBurn : DebuffBase
         Level = 1;
         BurnEffet = null;
     }
-    IEnumerator Burn(long burnDame, float interval = 0.1f, float time = 5f)
+    IEnumerator Burn(long burnDame, float interval)
     {
-        //if(!BaseChar) yield break;
-        //float tempTime = time;
-        //while (tempTime>=0)
-        //{
-        //    BaseChar.CharStats.Health -= burnDame;
-        //    tempTime -= Time.deltaTime;
-        //    yield return null;
-        //}
+        while (tempTime >= 0)
+        {
+            Debug.Log("Chays chays");
+            Body.TakeDamage(burnDame);
+            //Body.BaseStat.Health -= burnDame;
+            tempTime -= interval;
+            yield return new WaitForSeconds(interval);
+        }
         yield return null;
-        //ResetValue();
-        //StopAllCoroutines();
+        ResetValue();
+        StopAllCoroutines();
     }
 }

@@ -1,11 +1,16 @@
 using UnityEngine;
 
-public abstract class BaseEnemy : BaseBody<EnemyData>
+public abstract class BaseEnemy : BaseBody
 {
-    protected Rigidbody2D _Rigidbody2d;
+    private Rigidbody2D rigidbody2d;
+    private Collider2D colliderr;
 
-    public EnemyData EnemyStat => Stats;
-    //[SerializeField] protected EnemyData _EnemyStat;
+    public EnemyData EnemyStat => _EnemyStat;
+
+    public Rigidbody2D RB { get => rigidbody2d; set => rigidbody2d = value; }
+    public Collider2D Colliderr { get => colliderr; set => colliderr = value; }
+
+    [SerializeField] protected EnemyData _EnemyStat;
     [Space(10)]
     [SerializeField] protected float _MinDistanceFollow = 1.5f;
     [SerializeField] protected float _MaxDistanceFollow = 10;
@@ -18,7 +23,17 @@ public abstract class BaseEnemy : BaseBody<EnemyData>
     {
         if (Vector3.Distance(transform.position, GameManager.Instance.Controller.Player.transform.position) > _MinDistanceFollow)
         {
-            transform.position = Vector3.MoveTowards(transform.position, GameManager.Instance.Controller.Player.transform.position, EnemyStat.Speed * Time.deltaTime);
+            Vector3 dirMove = (GameManager.Instance.Controller.Player.transform.position - transform.position).normalized;
+
+            RB.isKinematic = false;
+            Colliderr.isTrigger = false;
+            RB.velocity = dirMove * 2; //BaseStat.Speed;
+        }
+        else
+        {
+            RB.velocity = Vector3.zero;
+            RB.isKinematic = true;
+            Colliderr.isTrigger = true;
         }
     }
 

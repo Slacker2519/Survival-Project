@@ -20,12 +20,12 @@ public class Character1 : BaseCharacter
     public override void InitCharacterStats(CharacterEnum name, long health, long defense, long damage, long speed,
         int critRate, long critDamage, long attackSpeed, long levelExpCap, float pickupRange)
     {
+        BaseStat.Health = health;
+        BaseStat.Defense = defense;
+        BaseStat.Damage = damage;
+        BaseStat.Speed = speed;
         CharStats.Level = 1;
         CharStats.Name = name;
-        CharStats.Health = health;
-        CharStats.Defense = defense;
-        CharStats.Damage = damage;
-        CharStats.Speed = speed;
         CharStats.CritRate = critRate;
         CharStats.CritDamage = critDamage;
         CharStats.AttackSpeed = attackSpeed;
@@ -36,8 +36,8 @@ public class Character1 : BaseCharacter
     public override void TakeDamage(long damage)
     {
 
-        CharStats.Health -= damage;
-        if(CharStats.Health<0) CharStats.Health = 0;
+        BaseStat.Health -= damage;
+        if(BaseStat.Health<0) BaseStat.Health = 0;
         //Debug.Log(CharStats.Health);
         this.PostEvent(EventID.OnPlayerTakeDamage);
         Debug.Log("Take Damage"+damage);
