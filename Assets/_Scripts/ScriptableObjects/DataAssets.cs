@@ -44,6 +44,12 @@ public class BuffConfigData
     public GameObject Prefab;
 }
 
+[Serializable]
+public class DeBuffConfigData
+{
+    public DeBuffEnum Name;
+    public GameObject Prefab;
+}
 [CreateAssetMenu(fileName = "DataAssets", menuName = "ScripableObjects/DataAssets", order = 0)]
 public class DataAssets : ScriptableObject
 {
@@ -71,6 +77,11 @@ public class DataAssets : ScriptableObject
     private List<BuffConfigData> _configBuffsDataList;
     public List<BuffConfigData> ConfigBuffsDataList => _configBuffsDataList;
 
+    [Header("===== DeBuffs Config Data =====")]
+    [SerializeField]
+    private List<DeBuffConfigData> _configDeBuffsDataList;
+    public List<DeBuffConfigData> ConfigDeBuffsDataList => _configDeBuffsDataList;
+
     public CharacterConfigData GetCharacterConfig(CharacterEnum characterName)
     {
         return _configCharactersStatList.Find(x => x.Name == characterName);
@@ -92,5 +103,9 @@ public class DataAssets : ScriptableObject
     public BuffConfigData GetBuffConfig(BuffEnum buffName)
     {
         return _configBuffsDataList.Find(x => x.Name == buffName);
+    }
+    public DeBuffConfigData GetDeBuffConfig(DeBuffEnum buffName)
+    {
+        return _configDeBuffsDataList.Find(x => x.Name == buffName);
     }
 }

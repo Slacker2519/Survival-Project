@@ -21,7 +21,7 @@ public class CharacterDameCaulation : MonoBehaviour
             {
                 return;
             }
-            long damage = enemy.EnemyStat.Damage;
+            long damage = enemy.BaseStat.Damage;
             character.TakeDamage(damage);
         }
     }

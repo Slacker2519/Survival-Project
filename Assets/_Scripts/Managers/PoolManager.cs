@@ -61,6 +61,12 @@ public class PoolManager : SingletonMono<PoolManager>
             _pools.Add(pool);
             new GameObject(pool.PoolName).transform.SetParent(transform);
         }
+        foreach (var item in asset.ConfigDeBuffsDataList)
+        {
+            var pool = new ObjectPool(item.Name.ToString(), item.Prefab);
+            _pools.Add(pool);
+            new GameObject(pool.PoolName).transform.SetParent(transform);
+        }
     }
 
     public void ClearPoolsData()
@@ -87,7 +93,10 @@ public class PoolManager : SingletonMono<PoolManager>
     {
         return GetObjectFromPool((buffName.ToString()).ToString(), parent);
     }
-
+    public GameObject SpawnDeBuff(DeBuffEnum debuffName, Transform parent = null)
+    {
+        return GetObjectFromPool((debuffName.ToString()).ToString(), parent);
+    }
     private GameObject GetObjectFromPool(string poolName, Transform parent = null)
     {
         var pool = _pools.Find(x => x.PoolName.Equals(poolName));
