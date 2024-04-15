@@ -32,6 +32,13 @@ MonoBehaviour:
     Damage: 10
     Speed: 2
     Prefab: {fileID: 8005877050035949135, guid: 18fbd35cd6a08c84db75f293b93b4668, type: 3}
+  - Name: 1
+    Rank: 1
+    Health: 20
+    Defense: 10
+    Damage: 10
+    Speed: 2
+    Prefab: {fileID: 8005877050035949135, guid: f02b269fe09490a4d8a100082b944934, type: 3}
   _configSkillsStatList: []
   _configBuffsDataList:
   - Name: 0

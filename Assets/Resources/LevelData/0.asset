@@ -13,25 +13,13 @@ MonoBehaviour:
   m_Name: 0
   m_EditorClassIdentifier: 
   pharseDatas:
-  - _pharseID: 0
-    _waveEnemyData:
-    - rank: 0
-      number: 20
-    _waveDuration: 20
-    _maxEnemy: 20
-    _spawnInterval: 0.2
-    _spawnAmount: 2
   - _pharseID: 1
     _waveEnemyData:
     - rank: 0
-      number: 20
+      number: 10
+    - rank: 1
+      number: 10
     _waveDuration: 40
     _maxEnemy: 20
     _spawnInterval: 0.2
     _spawnAmount: 20
-  - _pharseID: 0
-    _waveEnemyData: []
-    _waveDuration: 0
-    _maxEnemy: 0
-    _spawnInterval: 0
-    _spawnAmount: 0

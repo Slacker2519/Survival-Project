@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -91,7 +91,10 @@ public class DataAssets : ScriptableObject
     {
         return _configEnemiesStatList.Find(x => x.Name == enemyName);
     }
-
+    public EnemyConfigData GetEnemyConfigByRank(EnemyRank rank)
+    {
+        return _configEnemiesStatList.Find(x => x.Rank == rank);
+    }
     public SkillConfigData GetSkillConfig(SkillEnum skillName)
     {
         return _configSkillsStatList.Find(x => x.Name == skillName);
