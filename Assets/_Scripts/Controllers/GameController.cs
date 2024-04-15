@@ -3,6 +3,7 @@ using Gameplay;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -126,36 +127,63 @@ public class GameController : MonoBehaviour
         if (EnemiesList.Count < _maxEnemiesNumber)
         {
             List<EnemyWaveData> listEnemyWav = _listEnemyWava;
-            for (int i = 0; i < listEnemyWav.Count; i++)
+            int numRemain = _numberSpawnEnemy;
+            for(int i = 0; i < listEnemyWav.Count; i++)
+            {
+                if(numRemain<=0)
+                {
+                    break;
+                }
+                int numSpawn = Random.Range(1, numRemain);
+                EnemyWaveData data = listEnemyWav[i];
+                if(SpawnEnemy(data.number,numSpawn, data.rank))
+                    numRemain -= numSpawn;
+            }
+            /*for (int i = 0; i < listEnemyWav.Count; i++)
             {
                 EnemyWaveData data = listEnemyWav[i];
                 //Random enemy here
-
-                SpawnEnemy(data.number, data.rank);
-            }
+                
+                //SpawnEnemy(data.number, data.rank);
+            }*/
         }
         
     }
-    private void SpawnEnemy(int _maxEnemiesNumber,EnemyRank rank, EnemyEnum enemyEnum = EnemyEnum.Enemy1)
+    /*public int CalcuLateSwapNum(int _maxEnemiesNumber,int maxEnemy, EnemyRank rank)
     {
         int numEnemtRemain = EnemiesList.Count(enemy => enemy.EnemyStat.Rank == rank);
         if (numEnemtRemain < _maxEnemiesNumber)
         {
+            
+        }
+    }*/
+    private bool SpawnEnemy(int _maxEnemiesNumber,int numSpaw,EnemyRank rank, EnemyEnum enemyEnum = EnemyEnum.Enemy1)
+    {
+        if (numSpaw <= 0) return false;
+        int numEnemtRemain = EnemiesList.Count(enemy => enemy.EnemyStat.Rank == rank);
+        if (numEnemtRemain < _maxEnemiesNumber)
+        {
             var configManager = DataManager.Instance;
-            EnemyConfigData stat = configManager.DataAssets.GetEnemyConfig(enemyEnum);
+            EnemyConfigData stat = configManager.DataAssets.GetEnemyConfigByRank(rank);
 
-            for (int i = 0; i < Mathf.RoundToInt(Mathf.Clamp(_numberSpawnEnemy, 0, _numberSpawnEnemy)); i++)
+            /*for (int i = 0; i < Mathf.RoundToInt(Mathf.Clamp(_numberSpawnEnemy, 0, _numberSpawnEnemy)); i++)
+            {
+                SpawnEnemy(stat);
+            }*/
+            for (int i = 0; i < numSpaw; i++)
             {
                 SpawnEnemy(stat);
             }
+            return true;
         }
+        return false;
     }  
     void SpawnEnemy(EnemyConfigData stat)
 
     {
         GameObject enemyObj = PoolManager.Instance.SpawnEnemy(stat.Name);
         enemyObj.transform.position = GetEnemySpawnedPos();
-        Enemy1 enemy = enemyObj.GetComponent<Enemy1>();
+        BaseEnemy enemy = enemyObj.GetComponent<BaseEnemy>();
         enemy.InitEnemyStat(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed,stat.Rank);
         _enemiesList.Add(enemy);
     }

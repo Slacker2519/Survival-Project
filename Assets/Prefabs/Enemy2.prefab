@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1821402413500494985}
   - component: {fileID: 5699444341577633168}
   - component: {fileID: 6139414653782043402}
-  - component: {fileID: 1873388699901804100}
+  - component: {fileID: -900733815197537746}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Enemy
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 100
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.8763639, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -159,7 +159,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1873388699901804100
+--- !u!114 &-900733815197537746
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,15 +168,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 8005877050035949135}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deab995183f656b4ba6bc76a001b1710, type: 3}
+  m_Script: {fileID: 11500000, guid: 9afde4085aa88f243a32ec971a68b964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _EnemyStat:
-    Name: 0
+    Name: 1
     Health: 0
     Defense: 0
-    Damage: 20
+    Damage: 0
     Speed: 0
+    Rank: 0
   _MinDistanceFollow: 1.5
-  _MaxDistanceFollow: 30
-  _ResetPosCoolDown: 5
+  _MaxDistanceFollow: 10
+  _ResetPosCoolDown: 2
