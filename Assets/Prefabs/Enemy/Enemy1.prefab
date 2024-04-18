@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 590772878842123734}
   - component: {fileID: 1821402413500494985}
   - component: {fileID: 5699444341577633168}
-  - component: {fileID: 1873388699901804100}
   - component: {fileID: 122312450189137039}
+  - component: {fileID: 1873388699901804100}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Enemy
@@ -114,33 +114,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1873388699901804100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8005877050035949135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deab995183f656b4ba6bc76a001b1710, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseStat:
-    Health: 0
-    Defense: 0
-    Damage: 0
-    Speed: 0
-  _EnemyStat:
-    Name: 0
-    Health: 0
-    Defense: 0
-    Damage: 20
-    Speed: 0
-    Rank: 0
-  _MinDistanceFollow: 1.5
-  _MaxDistanceFollow: 30
-  _ResetPosCoolDown: 5
 --- !u!58 &122312450189137039
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -176,3 +149,29 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.83
+--- !u!114 &1873388699901804100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8005877050035949135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deab995183f656b4ba6bc76a001b1710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseStat:
+    Health: 0
+    Defense: 0
+    Damage: 0
+    Speed: 0
+  _EnemyStat:
+    Name: 0
+    Rank: 0
+  _MinDistanceFollow: 1.5
+  _MaxDistanceFollow: 30
+  _ResetPosCoolDown: 5
+  _SpriteRenderer: {fileID: 0}
+  _AttackDuration: 5
+  _RestingDuration: 3
