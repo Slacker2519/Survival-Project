@@ -17,8 +17,8 @@ public class Character1 : BaseCharacter
         
     }
 
-    public override void InitCharacterStats(CharacterEnum name, long health, long defense, long damage, long speed,
-        int critRate, long critDamage, long attackSpeed, long levelExpCap, float pickupRange)
+    public override void InitCharacterStats(CharacterEnum name, float health, float defense, float damage, float speed,
+        float critRate, float critDamage, float attackSpeed, float levelExpCap, float pickupRange)
     {
         BaseStat.Health = health;
         BaseStat.Defense = defense;
@@ -33,7 +33,7 @@ public class Character1 : BaseCharacter
         CharStats.PickupRange = pickupRange;
     }
 
-    public override void TakeDamage(long damage)
+    public override void TakeDamage(float damage)
     {
 
         BaseStat.Health -= damage;

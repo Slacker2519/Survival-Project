@@ -12,9 +12,9 @@ public abstract class BaseCharacter : BaseBody
     public bool IsWalking => _isWalking;
     private bool _isWalking;
 
-    public abstract void InitCharacterStats(CharacterEnum name, long health, long defense, long damage, long speed,
-        int critRate, long critDamage, long attackSpeed, long levelExpCap, float pickupRange);
-    public abstract override void TakeDamage(long damage);
+    public abstract void InitCharacterStats(CharacterEnum name, float health, float defense, float damage, float speed,
+        float critRate, float critDamage, float attackSpeed, float levelExpCap, float pickupRange);
+    public abstract override void TakeDamage(float damage);
     protected void Move()
     {
         GameController gameController = GameManager.Instance.Controller;

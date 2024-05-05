@@ -24,6 +24,8 @@ public class PoolManager : SingletonMono<PoolManager>
     [SerializeField]
     private List<ObjectPool> _pools = new List<ObjectPool>();
 
+    private Dictionary<EnemyStateEnum, List<IStateMachine<BaseEnemy>>> _stateDic = new Dictionary<EnemyStateEnum, List<IStateMachine<BaseEnemy>>>();
+
     private void Awake()
     {
         LoadDataAssets();
@@ -93,10 +95,13 @@ public class PoolManager : SingletonMono<PoolManager>
     {
         return GetObjectFromPool((buffName.ToString()).ToString(), parent);
     }
+
     public GameObject SpawnDeBuff(DeBuffEnum debuffName, Transform parent = null)
     {
         return GetObjectFromPool((debuffName.ToString()).ToString(), parent);
     }
+
+
     private GameObject GetObjectFromPool(string poolName, Transform parent = null)
     {
         var pool = _pools.Find(x => x.PoolName.Equals(poolName));
@@ -123,6 +128,40 @@ public class PoolManager : SingletonMono<PoolManager>
             obj.SetActive(true);
         }
         return obj;
+    }
+
+    public IStateMachine<BaseEnemy> GetState(EnemyStateEnum stateName)
+    {
+        IStateMachine<BaseEnemy> state;
+
+        if (!_stateDic.ContainsKey(stateName))
+        {
+            _stateDic.Add(stateName, new List<IStateMachine<BaseEnemy>>());
+        }
+
+        if (_stateDic[stateName].Count > 0)
+        {
+            state = _stateDic[stateName][0];
+            _stateDic[stateName].RemoveAt(0);
+            return state;
+        }
+        else
+        {
+            switch (stateName)
+            {
+                case EnemyStateEnum.Chasing:
+                    return new ChasingState();
+                case EnemyStateEnum.Attacking:
+                    return new AttackingState();
+            }
+        }
+
+        return null;
+    }
+
+    public void ReturnState(EnemyStateEnum stateName, IStateMachine<BaseEnemy> state)
+    {
+        _stateDic[stateName].Add(state);
     }
 
     // Return object to pool after not use it

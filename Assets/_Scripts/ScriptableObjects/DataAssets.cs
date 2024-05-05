@@ -6,14 +6,14 @@ using UnityEngine;
 public class CharacterConfigData
 {
     public CharacterEnum Name;
-    public long Health;
-    public long Defense;
-    public long Damage;
-    public long Speed;
-    public int CritRate;
-    public long CritDamage;
-    public long AttackSpeed;
-    public long LevelExpCap;
+    public float Health;
+    public float Defense;
+    public float Damage;
+    public float Speed;
+    public float CritRate;
+    public float CritDamage;
+    public float AttackSpeed;
+    public float LevelExpCap;
     public float PickupRange;
     public GameObject Prefab;
 }
@@ -23,10 +23,10 @@ public class EnemyConfigData
 {
     public EnemyEnum Name;
     public EnemyRank Rank;
-    public long Health;
-    public long Defense;
-    public long Damage;
-    public long Speed;
+    public float Health;
+    public float Defense;
+    public float Damage;
+    public float Speed;
     public GameObject Prefab;
 }
 
@@ -50,7 +50,8 @@ public class DeBuffConfigData
     public DeBuffEnum Name;
     public GameObject Prefab;
 }
-[CreateAssetMenu(fileName = "DataAssets", menuName = "ScripableObjects/DataAssets", order = 0)]
+
+[CreateAssetMenu(fileName = "DataAssets", menuName = "ScriptableObjects/DataAssets", order = 0)]
 public class DataAssets : ScriptableObject
 {
     [Header("===== Characters Config Data =====")]
@@ -91,10 +92,12 @@ public class DataAssets : ScriptableObject
     {
         return _configEnemiesStatList.Find(x => x.Name == enemyName);
     }
+
     public EnemyConfigData GetEnemyConfigByRank(EnemyRank rank)
     {
         return _configEnemiesStatList.Find(x => x.Rank == rank);
     }
+
     public SkillConfigData GetSkillConfig(SkillEnum skillName)
     {
         return _configSkillsStatList.Find(x => x.Name == skillName);
@@ -104,6 +107,7 @@ public class DataAssets : ScriptableObject
     {
         return _configBuffsDataList.Find(x => x.Name == buffName);
     }
+
     public DeBuffConfigData GetDeBuffConfig(DeBuffEnum buffName)
     {
         return _configDeBuffsDataList.Find(x => x.Name == buffName);

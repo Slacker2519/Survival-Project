@@ -28,10 +28,10 @@ MonoBehaviour:
   - Name: 0
     Rank: 0
     Health: 10
-    Defense: 10
-    Damage: 10
-    Speed: 2
-    Prefab: {fileID: 8005877050035949135, guid: 18fbd35cd6a08c84db75f293b93b4668, type: 3}
+    Defense: 0
+    Damage: 5
+    Speed: 0.5
+    Prefab: {fileID: 7906243447328416073, guid: 8eaf0bd784faab546bf63957da5e0e96, type: 3}
   - Name: 1
     Rank: 1
     Health: 20
