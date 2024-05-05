@@ -43,13 +43,13 @@ public class GameController : MonoBehaviour
         _currentWave = 0;
         _levelDataSO = GameUtilities.LoadClassicLevelData(0);
         Debug.Log(_levelDataSO.name);
-        _curPharse = _levelDataSO.pharseDatas[_currentWave];
+        _curPharse = _levelDataSO.PharseDatas[_currentWave];
         _currentTime = Constants.WaveDuration;
         _currentEnemySpawnTime = 0;
 
-        _numberSpawnEnemy = _curPharse.SpawnAmount;  //GameUtilities.GetEnemySpawnNumber(_currentWave);
-        _enemySpawnTime = _curPharse.SpawnInterval;  /*GameUtilities.GetEnemySpawnDuration(_currentWave);*/
-        _maxEnemiesNumber = _curPharse.MaxEnemy;  /*GameUtilities.GetEnemyMaxNumber(_currentWave);*/
+        _numberSpawnEnemy = _curPharse.SpawnAmount;
+        _enemySpawnTime = _curPharse.SpawnInterval;
+        _maxEnemiesNumber = _curPharse.MaxEnemy;
         SpawnPlayer();
         SpawnEnemyByWave(_curPharse.WaveEnemyData);
     }
@@ -60,6 +60,14 @@ public class GameController : MonoBehaviour
         _currentEnemySpawnTime += Time.deltaTime;
 
         CalculateEnemyWave();
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            foreach (var item in _enemiesList)
+            {
+                item.ChangeState(EnemyStateEnum.Attacking);
+            }
+        }
     }
 
     private void CalculateEnemyWave()
@@ -68,13 +76,11 @@ public class GameController : MonoBehaviour
         {
             _currentTime = Constants.WaveDuration;
             _currentWave++;
-            _curPharse = _levelDataSO.pharseDatas[_currentWave];
-            _numberSpawnEnemy = _curPharse.SpawnAmount;  //GameUtilities.GetEnemySpawnNumber(_currentWave);
-            _enemySpawnTime = _curPharse.SpawnInterval;  /*GameUtilities.GetEnemySpawnDuration(_currentWave);*/
-            _maxEnemiesNumber = _curPharse.MaxEnemy;  /*GameUtilities.GetEnemyMaxNumber(_currentWave);*/
+            _curPharse = _levelDataSO.PharseDatas[_currentWave];
+            _numberSpawnEnemy = _curPharse.SpawnAmount;
+            _enemySpawnTime = _curPharse.SpawnInterval;
+            _maxEnemiesNumber = _curPharse.MaxEnemy;
             SpawnEnemyByWave(_curPharse.WaveEnemyData);
-            //SpawnEnemy();
-            //SpawnEnemy()
         }
         
         if (_currentEnemySpawnTime >= _enemySpawnTime)
@@ -100,7 +106,6 @@ public class GameController : MonoBehaviour
             {
                 healthBar.Setup(character.GetComponent<BaseCharacter>());
             }
-            //GameManager.Instance.SaveGameData();
         }
     }
 
@@ -157,7 +162,8 @@ public class GameController : MonoBehaviour
             
         }
     }*/
-    private bool SpawnEnemy(int _maxEnemiesNumber,int numSpaw,EnemyRank rank, EnemyEnum enemyEnum = EnemyEnum.Enemy1)
+
+    private bool SpawnEnemy(int _maxEnemiesNumber,int numSpaw,EnemyRank rank, EnemyEnum enemyEnum = EnemyEnum.Laucent)
     {
         if (numSpaw <= 0) return false;
         int numEnemtRemain = EnemiesList.Count(enemy => enemy.EnemyStat.Rank == rank);
@@ -177,7 +183,8 @@ public class GameController : MonoBehaviour
             return true;
         }
         return false;
-    }  
+    }
+
     void SpawnEnemy(EnemyConfigData stat)
 
     {

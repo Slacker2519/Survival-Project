@@ -14,9 +14,11 @@ public enum EnemyRank
 }
 public enum EnemyEnum
 {
-    Enemy1, 
-    Enemy2,
-    Enemy3,
+    Laucent, 
+    BlackGinger,
+    Mayonese,
+    DeerKing,
+    SandWorm
 }
 public enum SkillEnum
 {
@@ -37,4 +39,16 @@ public enum DeBuffEnum
     DeBuff3,
 }
 
+public enum EnemyStateEnum
+{
+    None,
+    Chasing,
+    Attacking
+}
 
+//public enum AttackState
+//{
+//    None,
+//    Attacking,
+//    Resting
+//}

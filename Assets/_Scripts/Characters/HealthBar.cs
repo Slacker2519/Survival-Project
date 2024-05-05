@@ -20,7 +20,7 @@ namespace Gameplay
 
         BaseCharacter bodyAttach;
         bool isAnim = true;
-        long totalHealth;
+        float totalHealth;
 
         public void DeActiveObject()
         {
