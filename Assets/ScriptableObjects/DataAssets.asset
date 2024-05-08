@@ -31,13 +31,34 @@ MonoBehaviour:
     Defense: 0
     Damage: 5
     Speed: 0.5
-    Prefab: {fileID: 7906243447328416073, guid: 8eaf0bd784faab546bf63957da5e0e96, type: 3}
+    Prefab: {fileID: 4970478799278030941, guid: 8eaf0bd784faab546bf63957da5e0e96, type: 3}
   - Name: 1
+    Rank: 0
+    Health: 10
+    Defense: 0
+    Damage: 5
+    Speed: 0.5
+    Prefab: {fileID: 6696413150480276011, guid: 31b4a01923e75fb45b202dba0a9f6f23, type: 3}
+  - Name: 2
     Rank: 1
-    Health: 20
-    Defense: 10
-    Damage: 10
-    Speed: 2
+    Health: 50
+    Defense: 0
+    Damage: 20
+    Speed: 0.8
+    Prefab: {fileID: 5205203089481851392, guid: c729cd4107716ad45a8c41c7fd1f10d3, type: 3}
+  - Name: 3
+    Rank: 3
+    Health: 500
+    Defense: 0
+    Damage: 50
+    Speed: 0.6
+    Prefab: {fileID: 8005877050035949135, guid: f02b269fe09490a4d8a100082b944934, type: 3}
+  - Name: 4
+    Rank: 4
+    Health: 2000
+    Defense: 0
+    Damage: 100
+    Speed: 0.7
     Prefab: {fileID: 8005877050035949135, guid: f02b269fe09490a4d8a100082b944934, type: 3}
   _configSkillsStatList: []
   _configBuffsDataList:

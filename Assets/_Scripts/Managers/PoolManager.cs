@@ -153,6 +153,11 @@ public class PoolManager : SingletonMono<PoolManager>
                     return new ChasingState();
                 case EnemyStateEnum.Attacking:
                     return new AttackingState();
+                case EnemyStateEnum.ChargeAttack:
+                    return new ChargeAttackState();
+                default:
+                    Debug.LogError("Can't find this state in the pool");
+                    break;
             }
         }
 
