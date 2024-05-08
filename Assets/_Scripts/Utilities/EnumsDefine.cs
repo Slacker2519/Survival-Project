@@ -43,7 +43,8 @@ public enum EnemyStateEnum
 {
     None,
     Chasing,
-    Attacking
+    Attacking,
+    ChargeAttack,
 }
 
 //public enum AttackState
