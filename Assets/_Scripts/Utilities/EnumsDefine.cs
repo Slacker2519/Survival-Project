@@ -45,11 +45,5 @@ public enum EnemyStateEnum
     Chasing,
     Attacking,
     ChargeAttack,
+    RunTowardPlayer,
 }
-
-//public enum AttackState
-//{
-//    None,
-//    Attacking,
-//    Resting
-//}

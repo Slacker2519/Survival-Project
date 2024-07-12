@@ -281,7 +281,6 @@ namespace Elite.GangGang.Utils
         public static List<int> EnemySpawnNumber = new List<int> { 2, 3, 4, 5, 6, 10, 11, 12, 13, 17, 18, 19, 20 };
         public static LevelDataSO LoadClassicLevelData(int level)
         {
-
             Debug.Log("Load Level Data " + level);
 
             string resource = "LevelData/" + level;

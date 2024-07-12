@@ -5,5 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/LevelDataSO", fileName = "LevelDataSO")]
 public class LevelDataSO : ScriptableObject
 {
-    public List<WaveData> PharseDatas;
+    public List<WaveData> PhaseDatas;
+    public int LevelTime = 300;
 }

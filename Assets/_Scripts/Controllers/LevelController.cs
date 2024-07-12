@@ -3,55 +3,56 @@ using Gameplay;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class LevelController : SingletonMono<LevelController>
 {
-    // New input system ref
-    public GameInput PlayerInput => _gameInput;
-    [SerializeField] private GameInput _gameInput;
+    #region Properties
+    [SerializeField] private double _currentTime = 0;
+    [SerializeField] private List<BaseEnemy> _enemyList;
 
-    public BaseCharacter Player => _player;
     private BaseCharacter _player;
     private LevelDataSO _levelDataSO;
-    private WaveData _curPharse;
-    public List<BaseEnemy> EnemiesList => _enemiesList;
-    [SerializeField] private List<BaseEnemy> _enemiesList;
-    private int _maxEnemiesNumber;
+    private WaveData _currentPhase;
 
-    [SerializeField] private double _currentTime;
-
-    public int CurrentWave => _currentWave;
-    private int _currentWave;
-
-    public float EnemySpawnTime => _enemySpawnTime;
+    private int _maxEnemyNumber;
+    private int _currentWave = 0;
     private float _enemySpawnTime;
-    private float _currentEnemySpawnTime;
-
-    public int NumberSpawnEnemy => _numberSpawnEnemy;
+    private float _currentEnemySpawnTime = 0;
     private int _numberSpawnEnemy;
+    #endregion
+
+    #region Get Set
+    public BaseCharacter Player => _player;
+    public List<BaseEnemy> EnemyList => _enemyList;
+    public int CurrentWave => _currentWave;
+    public float EnemySpawnTime => _enemySpawnTime;
+    public int NumberSpawnEnemy => _numberSpawnEnemy;
+    #endregion
 
     private void Awake()
     {
-        _gameInput = GetComponent<GameInput>();
-        _enemiesList = new List<BaseEnemy>();
+        _enemyList = new List<BaseEnemy>();
     }
 
     private void Start()
     {
+        this.RegisterEvent(EventID.OnEnemyDie, GetNextWave);
+        this.RegisterEvent(EventID.OnFinishLevel, CompleteThisLevel);
+
         _currentWave = 0;
         _levelDataSO = GameUtilities.LoadClassicLevelData(0);
         Debug.Log(_levelDataSO.name);
-        _curPharse = _levelDataSO.PhaseDatas[_currentWave];
-        _currentTime = Constants.WaveDuration;
+        _currentPhase = _levelDataSO.PhaseDatas[_currentWave];
+        _currentTime = _levelDataSO.LevelTime;
         _currentEnemySpawnTime = 0;
 
-        _numberSpawnEnemy = _curPharse.SpawnAmount;
-        _enemySpawnTime = _curPharse.SpawnInterval;
-        _maxEnemiesNumber = _curPharse.MaxEnemy;
+        _numberSpawnEnemy = _currentPhase.SpawnAmount;
+        _enemySpawnTime = _currentPhase.SpawnInterval;
+        _maxEnemyNumber = _currentPhase.MaxEnemy;
+
         SpawnPlayer();
-        SpawnEnemyByWave(_curPharse.WaveEnemyData);
+        SpawnEnemyByWave(_currentPhase.WaveEnemyData);
     }
 
     private void Update()
@@ -61,9 +62,9 @@ public class GameController : MonoBehaviour
 
         CalculateEnemyWave();
 
-        if (Input.GetKeyDown(KeyCode.V))
+        if (UnityEngine.Input.GetKeyDown(KeyCode.V))
         {
-            foreach (var item in _enemiesList)
+            foreach (var item in _enemyList)
             {
                 item.ChangeState(EnemyStateEnum.Attacking);
             }
@@ -72,22 +73,31 @@ public class GameController : MonoBehaviour
 
     private void CalculateEnemyWave()
     {
-        if (_currentTime <= 0)
-        {
-            _currentTime = Constants.WaveDuration;
-            _currentWave++;
-            _curPharse = _levelDataSO.PhaseDatas[_currentWave];
-            _numberSpawnEnemy = _curPharse.SpawnAmount;
-            _enemySpawnTime = _curPharse.SpawnInterval;
-            _maxEnemiesNumber = _curPharse.MaxEnemy;
-            SpawnEnemyByWave(_curPharse.WaveEnemyData);
-        }
-        
         if (_currentEnemySpawnTime >= _enemySpawnTime)
         {
             _currentEnemySpawnTime = 0;
-            SpawnEnemyByWave(_curPharse.WaveEnemyData);
+            SpawnEnemyByWave(_currentPhase.WaveEnemyData);
         }
+    }
+
+    private void GetNextWave(object obj = null)
+    {
+        if (_currentTime > 0 && _enemyList.Count <= 0)
+        {
+            if (_currentWave < _levelDataSO.PhaseDatas.Count - 1) { _currentWave++; }
+
+            _currentPhase = _levelDataSO.PhaseDatas[_currentWave];
+            _numberSpawnEnemy = _currentPhase.SpawnAmount;
+            _enemySpawnTime = _currentPhase.SpawnInterval;
+            _maxEnemyNumber = _currentPhase.MaxEnemy;
+            SpawnEnemyByWave(_currentPhase.WaveEnemyData);
+        }
+    }
+
+    private void CompleteThisLevel(object obj = null)
+    {
+        this.UnregisterEvent(EventID.OnEnemyDie, GetNextWave);
+        this.UnregisterEvent(EventID.OnFinishLevel, CompleteThisLevel);
     }
 
     private void SpawnPlayer()
@@ -99,13 +109,13 @@ public class GameController : MonoBehaviour
         {
             _player = player;
             var configManager = DataManager.Instance;
-
             CharacterConfigData stat = configManager.DataAssets.GetCharacterConfig(characterPicked);
 
             _player.InitCharacterStats(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed,
                 stat.CritRate, stat.CritDamage, stat.AttackSpeed, stat.LevelExpCap, stat.PickupRange);
 
             HealthBar healthBar = FindObjectOfType<HealthBar>();
+
             if (healthBar)
             {
                 healthBar.Setup(character.GetComponent<BaseCharacter>());
@@ -113,90 +123,54 @@ public class GameController : MonoBehaviour
         }
     }
 
-   /* private void SpawnEnemy()
+    void SpawnEnemyByWave(List<EnemyWaveData> listEnemyWave)
     {
-        if (EnemiesList.Count < _maxEnemiesNumber)
+        if (_enemyList.Count < _maxEnemyNumber)
         {
-            var configManager = DataManager.Instance;
-            EnemyConfigData stat = configManager.DataAssets.GetEnemyConfig(EnemyEnum.Enemy1);
-
-            for (int i = 0; i < Mathf.RoundToInt(Mathf.Clamp(_numberSpawnEnemy, 0, _numberSpawnEnemy)); i++)
-            {
-                GameObject enemyObj = PoolManager.Instance.SpawnEnemy(EnemyEnum.Enemy1);
-                enemyObj.transform.position = GetEnemySpawnedPos();
-                Enemy1 enemy = enemyObj.GetComponent<Enemy1>();
-                enemy.InitEnemyStat(EnemyEnum.Enemy1, stat.Health, stat.Defense, stat.Damage, stat.Speed,EnemyRank.Small);
-                _enemiesList.Add(enemy);
-            }
-        }
-    }*/
-
-    void SpawnEnemyByWave(List<EnemyWaveData> _listEnemyWava)
-    {
-        if (EnemiesList.Count < _maxEnemiesNumber)
-        {
-            List<EnemyWaveData> listEnemyWav = _listEnemyWava;
+            List<EnemyWaveData> tempListEnemyWave = listEnemyWave;
             int numRemain = _numberSpawnEnemy;
-            for(int i = 0; i < listEnemyWav.Count; i++)
+            for (int i = 0; i < tempListEnemyWave.Count; i++)
             {
-                if(numRemain<=0)
-                {
-                    break;
-                }
+                if (numRemain <= 0) break;
+
                 int numSpawn = Random.Range(1, numRemain);
-                EnemyWaveData data = listEnemyWav[i];
-                if(SpawnEnemy(data.number,numSpawn, data.rank))
+                EnemyWaveData data = tempListEnemyWave[i];
+
+                if (SpawnEnemy(data.number, numSpawn, data.rank))
                     numRemain -= numSpawn;
             }
-            /*for (int i = 0; i < listEnemyWav.Count; i++)
-            {
-                EnemyWaveData data = listEnemyWav[i];
-                //Random enemy here
-                
-                //SpawnEnemy(data.number, data.rank);
-            }*/
         }
-        
     }
-    /*public int CalcuLateSwapNum(int _maxEnemiesNumber,int maxEnemy, EnemyRank rank)
-    {
-        int numEnemtRemain = EnemiesList.Count(enemy => enemy.EnemyStat.Rank == rank);
-        if (numEnemtRemain < _maxEnemiesNumber)
-        {
-            
-        }
-    }*/
 
-    private bool SpawnEnemy(int _maxEnemiesNumber,int numSpaw,EnemyRank rank, EnemyEnum enemyEnum = EnemyEnum.Laucent)
+    private bool SpawnEnemy(int maxEnemyNumber, int numSpawn, EnemyRank rank, EnemyEnum enemyEnum = EnemyEnum.Laucent)
     {
-        if (numSpaw <= 0) return false;
-        int numEnemtRemain = EnemiesList.Count(enemy => enemy.EnemyStat.Rank == rank);
-        if (numEnemtRemain < _maxEnemiesNumber)
+        if (numSpawn <= 0) return false;
+
+        int numEnumRemain = _enemyList.Count(enemy => enemy.EnemyStat.Rank == rank);
+
+        if (numEnumRemain < maxEnemyNumber)
         {
             var configManager = DataManager.Instance;
             EnemyConfigData stat = configManager.DataAssets.GetEnemyConfigByRank(rank);
 
-            /*for (int i = 0; i < Mathf.RoundToInt(Mathf.Clamp(_numberSpawnEnemy, 0, _numberSpawnEnemy)); i++)
-            {
-                SpawnEnemy(stat);
-            }*/
-            for (int i = 0; i < numSpaw; i++)
+            for (int i = 0; i < numSpawn; i++)
             {
                 SpawnEnemy(stat);
             }
+
             return true;
         }
+
         return false;
     }
 
     void SpawnEnemy(EnemyConfigData stat)
-
     {
         GameObject enemyObj = PoolManager.Instance.SpawnEnemy(stat.Name);
         enemyObj.transform.position = GetEnemySpawnedPos();
         BaseEnemy enemy = enemyObj.GetComponent<BaseEnemy>();
-        enemy.InitEnemyStat(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed,stat.Rank);
-        _enemiesList.Add(enemy);
+        enemy.InitEnemyStat(stat.Name, stat.Health, stat.Defense, stat.Damage, stat.Speed, stat.Rank);
+        _enemyList.Add(enemy);
     }
 
     public Vector3 GetEnemySpawnedPos()
