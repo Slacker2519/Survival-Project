@@ -12,13 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5961e49a2905a134da37fcbf9bd7484d, type: 3}
   m_Name: 0
   m_EditorClassIdentifier: 
-  PhaseDatas:
-  - _waveEnemyData:
-    - rank: 0
-      number: 10
-    - rank: 0
-      number: 10
-    _maxEnemy: 10
-    _spawnInterval: 0.3
-    _spawnAmount: 2
+  LevelDatasList: []
   LevelTime: 300

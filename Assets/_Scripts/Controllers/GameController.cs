@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
     public BaseCharacter Player => _player;
     private BaseCharacter _player;
     private LevelDataSO _levelDataSO;
-    private WaveData _curPharse;
+    private LevelData _curPharse;
     public List<BaseEnemy> EnemiesList => _enemiesList;
     [SerializeField] private List<BaseEnemy> _enemiesList;
     private int _maxEnemiesNumber;
@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour
         _currentWave = 0;
         _levelDataSO = GameUtilities.LoadClassicLevelData(0);
         Debug.Log(_levelDataSO.name);
-        _curPharse = _levelDataSO.PhaseDatas[_currentWave];
+        _curPharse = _levelDataSO.LevelDatasList[_currentWave];
         _currentTime = Constants.WaveDuration;
         _currentEnemySpawnTime = 0;
 
@@ -76,7 +76,7 @@ public class GameController : MonoBehaviour
         {
             _currentTime = Constants.WaveDuration;
             _currentWave++;
-            _curPharse = _levelDataSO.PhaseDatas[_currentWave];
+            _curPharse = _levelDataSO.LevelDatasList[_currentWave];
             _numberSpawnEnemy = _curPharse.SpawnAmount;
             _enemySpawnTime = _curPharse.SpawnInterval;
             _maxEnemiesNumber = _curPharse.MaxEnemy;

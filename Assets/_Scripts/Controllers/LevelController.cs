@@ -8,26 +8,27 @@ using UnityEngine;
 public class LevelController : SingletonMono<LevelController>
 {
     #region Properties
+    [SerializeField] private int _level;
     [SerializeField] private double _currentTime = 0;
     [SerializeField] private List<BaseEnemy> _enemyList;
 
     private BaseCharacter _player;
     private LevelDataSO _levelDataSO;
-    private WaveData _currentPhase;
+    private LevelData _levelData;
 
-    private int _maxEnemyNumber;
+    private int _maxEnemy;
     private int _currentWave = 0;
-    private float _enemySpawnTime;
-    private float _currentEnemySpawnTime = 0;
-    private int _numberSpawnEnemy;
+    private float _enemySpawnDuration;
+    private float _currentEnemySpawnDuration = 0;
+    private int _enemySpawnAmount;
     #endregion
 
     #region Get Set
     public BaseCharacter Player => _player;
     public List<BaseEnemy> EnemyList => _enemyList;
     public int CurrentWave => _currentWave;
-    public float EnemySpawnTime => _enemySpawnTime;
-    public int NumberSpawnEnemy => _numberSpawnEnemy;
+    public float EnemySpawnTime => _enemySpawnDuration;
+    public int EnemySpawnAmount => _enemySpawnAmount;
     #endregion
 
     private void Awake()
@@ -41,24 +42,24 @@ public class LevelController : SingletonMono<LevelController>
         this.RegisterEvent(EventID.OnFinishLevel, CompleteThisLevel);
 
         _currentWave = 0;
-        _levelDataSO = GameUtilities.LoadClassicLevelData(0);
+        _levelDataSO = GameUtilities.LoadClassicLevelData(_level);
         Debug.Log(_levelDataSO.name);
-        _currentPhase = _levelDataSO.PhaseDatas[_currentWave];
+        _levelData = _levelDataSO.LevelDatasList[_currentWave];
         _currentTime = _levelDataSO.LevelTime;
-        _currentEnemySpawnTime = 0;
+        _currentEnemySpawnDuration = 0;
 
-        _numberSpawnEnemy = _currentPhase.SpawnAmount;
-        _enemySpawnTime = _currentPhase.SpawnInterval;
-        _maxEnemyNumber = _currentPhase.MaxEnemy;
+        _enemySpawnAmount = _levelData.SpawnAmount;
+        _enemySpawnDuration = _levelData.SpawnInterval;
+        _maxEnemy = _levelData.MaxEnemy;
 
         SpawnPlayer();
-        SpawnEnemyByWave(_currentPhase.WaveEnemyData);
+        SpawnEnemyByWave(_levelData.WaveEnemyData);
     }
 
     private void Update()
     {
         _currentTime -= Time.deltaTime;
-        _currentEnemySpawnTime += Time.deltaTime;
+        _currentEnemySpawnDuration += Time.deltaTime;
 
         CalculateEnemyWave();
 
@@ -73,10 +74,10 @@ public class LevelController : SingletonMono<LevelController>
 
     private void CalculateEnemyWave()
     {
-        if (_currentEnemySpawnTime >= _enemySpawnTime)
+        if (_currentEnemySpawnDuration >= _enemySpawnDuration)
         {
-            _currentEnemySpawnTime = 0;
-            SpawnEnemyByWave(_currentPhase.WaveEnemyData);
+            _currentEnemySpawnDuration = 0;
+            SpawnEnemyByWave(_levelData.WaveEnemyData);
         }
     }
 
@@ -84,13 +85,13 @@ public class LevelController : SingletonMono<LevelController>
     {
         if (_currentTime > 0 && _enemyList.Count <= 0)
         {
-            if (_currentWave < _levelDataSO.PhaseDatas.Count - 1) { _currentWave++; }
+            if (_currentWave < _levelDataSO.LevelDatasList.Count - 1) { _currentWave++; }
 
-            _currentPhase = _levelDataSO.PhaseDatas[_currentWave];
-            _numberSpawnEnemy = _currentPhase.SpawnAmount;
-            _enemySpawnTime = _currentPhase.SpawnInterval;
-            _maxEnemyNumber = _currentPhase.MaxEnemy;
-            SpawnEnemyByWave(_currentPhase.WaveEnemyData);
+            _levelData = _levelDataSO.LevelDatasList[_currentWave];
+            _enemySpawnAmount = _levelData.SpawnAmount;
+            _enemySpawnDuration = _levelData.SpawnInterval;
+            _maxEnemy = _levelData.MaxEnemy;
+            SpawnEnemyByWave(_levelData.WaveEnemyData);
         }
     }
 
@@ -125,33 +126,34 @@ public class LevelController : SingletonMono<LevelController>
 
     void SpawnEnemyByWave(List<EnemyWaveData> listEnemyWave)
     {
-        if (_enemyList.Count < _maxEnemyNumber)
+        if (_enemyList.Count < _maxEnemy)
         {
             List<EnemyWaveData> tempListEnemyWave = listEnemyWave;
-            int numRemain = _numberSpawnEnemy;
+            int numRemain = _enemySpawnAmount;
             for (int i = 0; i < tempListEnemyWave.Count; i++)
             {
                 if (numRemain <= 0) break;
 
-                int numSpawn = Random.Range(1, numRemain);
+                int numSpawn = 0;
+                Mathf.Clamp(numSpawn, 1, numRemain);
                 EnemyWaveData data = tempListEnemyWave[i];
 
-                if (SpawnEnemy(data.number, numSpawn, data.rank))
+                if (SpawnEnemy(data.number, numSpawn, data.name))
                     numRemain -= numSpawn;
             }
         }
     }
 
-    private bool SpawnEnemy(int maxEnemyNumber, int numSpawn, EnemyRank rank, EnemyEnum enemyEnum = EnemyEnum.Laucent)
+    private bool SpawnEnemy(int maxEnemyNumber, int numSpawn, EnemyEnum name)
     {
         if (numSpawn <= 0) return false;
 
-        int numEnumRemain = _enemyList.Count(enemy => enemy.EnemyStat.Rank == rank);
+        int numEnumRemain = _enemyList.Count(enemy => enemy.EnemyStat.Name == name);
 
         if (numEnumRemain < maxEnemyNumber)
         {
             var configManager = DataManager.Instance;
-            EnemyConfigData stat = configManager.DataAssets.GetEnemyConfigByRank(rank);
+            EnemyConfigData stat = configManager.DataAssets.GetEnemyConfig(name);
 
             for (int i = 0; i < numSpawn; i++)
             {
