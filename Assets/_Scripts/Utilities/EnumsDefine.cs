@@ -45,5 +45,7 @@ public enum EnemyStateEnum
     Chasing,
     Attacking,
     ChargeAttack,
-    RunTowardPlayer,
+    Worm_RoamingState,
+    Worm_CollideWall,
+    Worm_Rising,
 }

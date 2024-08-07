@@ -155,6 +155,12 @@ public class PoolManager : SingletonMono<PoolManager>
                     return new AttackingState();
                 case EnemyStateEnum.ChargeAttack:
                     return new ChargeAttackState();
+                case EnemyStateEnum.Worm_RoamingState:
+                    return new RoamingState();
+                case EnemyStateEnum.Worm_CollideWall:
+                    return new CollideWallState();
+                case EnemyStateEnum.Worm_Rising:
+                    return new RisingState();
                 default:
                     Debug.LogError("Can't find this state in the pool");
                     break;

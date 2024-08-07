@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullet
   - Enemy
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -45,4 +46,16 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 2276216793
+    locked: 0
+  - name: Background
+    uniqueID: 2737991871
+    locked: 0
+  - name: BackEnemy
+    uniqueID: 3634912237
+    locked: 0
+  - name: Player
+    uniqueID: 2258618249
+    locked: 0
+  - name: FrontEnemy
+    uniqueID: 1192203427
     locked: 0

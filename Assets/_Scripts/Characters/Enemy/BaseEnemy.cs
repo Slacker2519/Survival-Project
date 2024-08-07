@@ -17,6 +17,7 @@ public abstract class BaseEnemy : BaseBody
     public EnemyData EnemyStat => _EnemyStat;
     [SerializeField] protected EnemyData _EnemyStat;
 
+    public EnemyStateEnum StateName => _stateName;
     private EnemyStateEnum _stateName;
 
     public IStateMachine<BaseEnemy> CurrentState;
